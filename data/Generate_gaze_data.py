@@ -1,7 +1,7 @@
 import pygame
 import cv2
 import datetime
-
+from pygame.locals import *
 
 pygame.init()
 infoObject = pygame.display.Info()
@@ -13,7 +13,7 @@ interval = 100
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-GRAY = (60, 60, 60)
+GRAY = (80, 80, 80)
 
 # points = [(w,h) for h in range(50,height,100) for w in range(50,width, interval)]
 
@@ -32,13 +32,9 @@ def loop():
     number = 0
     button = pygame.draw.circle(screen, WHITE, points[number],10)
 
-    done = False
-    while not done:
+    while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            # 클릭시 발생함
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     # event.pos: 마우스 위치임.
                     if button.collidepoint(event.pos):            
@@ -48,11 +44,13 @@ def loop():
                         cv2.imwrite( str(now) + str(points[number]) + ".png", frame)
                         number += 1
                         if number == len(points):
-                            done = True
                             capture.release()
                             pygame.quit()
                         button = pygame.draw.circle(screen, BLACK, points[number],10)
-                        
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    capture.release()
 
         screen.fill(GRAY)
         pygame.draw.circle(screen, BLACK, points[number],10)
@@ -61,10 +59,3 @@ def loop():
 
 
 loop()
-
-
-
-
-
-
-
