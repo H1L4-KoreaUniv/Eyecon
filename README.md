@@ -24,11 +24,8 @@
 
 ### Data download
 
-#### samples.pkl
-https://drive.google.com/drive/folders/1lxwO-A-VBZCVuKKP1FgE_h0ZgfxUvlR4
-
-#### shape_predictor_68_face_landmarks.dat
-http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+- [samples.pkl](https://drive.google.com/drive/folders/1lxwO-A-VBZCVuKKP1FgE_h0ZgfxUvlR4)
+- [shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)
 
 ## 개발 상황
 [doc/Develop_Diary.md](https://github.com/H1L4-KoreaUniv/Eyecon/blob/master/doc/Develop_Diary.md)
