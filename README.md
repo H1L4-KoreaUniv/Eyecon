@@ -18,3 +18,14 @@
 1) 화면을 본다/안본다로 데이터 생성
 2) 각 데이터의 head pose 값(pitch-yaw-roll) 생성(api 사용)
 3) 1), 2)를 feature로 deeplearning
+
+
+## 실행 방법
+
+### Data download
+
+#### samples.pkl
+https://drive.google.com/drive/folders/1lxwO-A-VBZCVuKKP1FgE_h0ZgfxUvlR4
+
+#### shape_predictor_68_face_landmarks.dat
+http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
