@@ -2,7 +2,7 @@
 
 ## 2020.08.05(수)
 
-1. 4화면 분할을 위한 ppt 프로그램 생성
+1. 4분할된 화면 영역의 gaze-estimation 데이터 생성을 위한 ppt 프로그램 구축 
 2. Plan A data 생성 및 전처리
 3. Dropbox(Data 공유) 생성
 4. https://github.com/ADI10HERO/GazeControl openvino import 성공
