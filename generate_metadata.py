@@ -49,6 +49,18 @@ def compute_features(face_points):
     return np.array(features).reshape(1, -1)
 
 
+def append_data(path, data, save_path):
+    with open(path) as json_file:
+        #read json file
+        json_data = json.load(json_file)
+        #add data
+        json_data['data'].append(data)
+        json.dumps(json_data,ensure_ascii=False,indent="\t")
+        #write
+        with open(save_path,'w',encoding="utf-8") as make_file:
+            json.dump(json_data, make_file,ensure_ascii=False,indent='\t')
+    return json_data
+
 model = load_model('./head_pose_estimation/model/model.h5')
 data=[]
 for i in range(8,36): #Modified according to the frame number
