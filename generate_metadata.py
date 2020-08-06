@@ -9,6 +9,7 @@ from keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import json
+import os
 from collections import OrderedDict
 
 # model
@@ -63,18 +64,26 @@ def append_data(path, data, save_path):
 
 model = load_model('./head_pose_estimation/model/model.h5')
 data=[]
-for i in range(8,36): #Modified according to the frame number
-    
+
+#img가 저장된 폴더
+path_dir = '/Users/hong-yujin/Downloads/img_data'
+file_list=os.listdir(path_dir)
+
+for i in file_list: #i: img 폴더의 파일이름
+    if i=='.DS_Store':
+        continue
     # Need to change in some cases
-    path = './data/1_static_LDH/1_static_LDH_frame'+str(i)+'.jpg'
+    #path = path_dir+'./Eyecon/data/1_static_LDH/1_static_LDH_frame'+str(i)+'.jpg'
+    path_file = path_dir+'/'+i
     # parsing
-    spath=path.split('/')
-    npath=spath[3].split('_')
+    #2_leftface2_HYJ_frame29.jpg
+    npath=i.split('_')
     label=npath[0]
-    movement=npath[1]
+    movement=npath[1][:-1]
+    version=npath[1][-1]
     subject=npath[2]
-    file_name = spath[3]
-    print(path)
+    file_name = i
+    print(label, movement, version, subject, file_name)
     # test model
     im = cv2.imread(path, cv2.IMREAD_COLOR)
     im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
@@ -101,12 +110,15 @@ for i in range(8,36): #Modified according to the frame number
     file_data["file_name"]=file_name
     file_data["label"]=label
     file_data["movement"]=movement
+    file_data["version"]=version
     file_data["head_pose"]= {'pitch':str(pitch_pred),'yaw':str(yaw_pred),'roll':str(roll_pred)}#pitch,yaw,roll
     file_data["face_points"]=str(face_points_list)
     data.append(file_data)
-
     
-json.dumps(data,ensure_ascii=False,indent="\t")
+datadict={}
+datadict['data']= data
+
+json.dumps(datadict,ensure_ascii=False,indent="\t")
 #write
 with open('metadata.json','w',encoding="utf-8") as make_file:
-    json.dump(data, make_file,ensure_ascii=False,indent='\t')
+    json.dump(datadict, make_file,ensure_ascii=False,indent='\t')
