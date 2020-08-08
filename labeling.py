@@ -5,7 +5,7 @@ import os
 import json
 from collections import OrderedDict
 
-path_dir = 'C:/Users/JIWON/Downloads/temp'
+path_dir = 'your_path' # 이미지가 들어있는 폴더 경로
 file_list = os.listdir(path_dir)
 
 data = []
@@ -21,6 +21,5 @@ data_dict
 
 # print(json.dumps(data_dict, ensure_ascii=False, indent='\t'))
 
-with open('C:/Users/JIWON/Downloads/temp/temp.json', 'w', encoding='utf-8') as make_file:
+with open('save_path/data_label.json', 'w', encoding='utf-8') as make_file:
     json.dump(data_dict, make_file, ensure_ascii=False, indent='\t')
-
