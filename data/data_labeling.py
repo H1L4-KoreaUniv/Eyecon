@@ -5,7 +5,7 @@ import os
 import json
 from collections import OrderedDict
 
-path_dir = 'your_path' # 이미지가 들어있는 폴더 경로
+path_dir = 'your_path' # path with image
 file_list = os.listdir(path_dir)
 
 data = []
