@@ -1,6 +1,6 @@
 # Eyecon
 ---
-#### Eye Tracking Based Concentration Evaluating System
+### Eye Tracking Based Concentration Evaluating System
  포스트 코로나 시대의 비대면 온라인 강의의 질 향상을 위한 학습자의 이해도 및 집중도 평가 시스템
 
 ## 개요 
