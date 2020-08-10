@@ -26,3 +26,19 @@
 
 ### Demo
 [![](https://i.imgur.com/sdOM88J.png)](https://youtu.be/MMCbQCBtch8)
+
+# Gaze Tracking
+---
+### Referenced Code
+* https://github.com/antoinelame/GazeTracking
+
+### Requirements
+* numpy == 1.16.1
+* opencv_python == 3.4.5.20
+* dlib == 19.16.0
+
+### Licensing
+This project is released by Antoine Lamé under the terms of the MIT Open Source License. View LICENSE for more information.
+
+### Demo
+[![](https://camo.githubusercontent.com/b2701b19d2b251ada6aeff2f2bb10783c5d2a930/68747470733a2f2f692e696d6775722e636f6d2f574e7167516b4f2e676966)]
