@@ -9,6 +9,9 @@ import cv2
 import numpy as np
 import os.path as osp
 import headpose
+import Gaze_Tracking 
+from Gaze_Tracking.eye_detection import detect_eye
+
 
 class Headpose_video():
     def __init__(self, input_file, ouput_file):
@@ -20,7 +23,10 @@ class Headpose_video():
         x1=int(bbox[0]) 
         y1=int(bbox[1]) 
         y2=int(bbox[3])
-        facelmname = f'{self.imgfile}frame{self.cnt}_facelm.jpg'
+        # 얼굴 사진 따로 저장할 하위 폴더명
+        facelmdir = 'facelm_img/'
+        # 전체 경로 포함한 저장 파일명
+        facelmname = self.imgfile.split('/')[0] + '/' + facelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_facelm.jpg'
         cv2.imwrite(facelmname, cv2.resize(original[ y1:y2, x1:x1+y2-y1], dsize=(300, 300), interpolation=cv2.INTER_AREA))
         return facelmname
 
@@ -31,10 +37,11 @@ class Headpose_video():
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
         hpd = headpose.HeadposeDetection(1,'model/shape_predictor_68_face_landmarks.dat')
-
+        
         ang=[]
         box=[]
         facelmname=[]
+        eyelmlist=[]
         while(cap.isOpened()):
             # Capture frame-by-frame
             ret, frame = cap.read()
@@ -42,7 +49,9 @@ class Headpose_video():
                 break
             else:
                 original = frame.copy()
+                eyelm = detect_eye(original)
                 frame, angles, bbox = hpd.process_image(frame)
+                
                 if bbox is None:
                     continue
                 else:
@@ -50,10 +59,19 @@ class Headpose_video():
                         facelmname.append(self.get_land_img(bbox,original))
                         ang.append(angles)
                         box.append(bbox)
+                        eyelmlist.append(eyelm)
+                        # 눈 사진 따로 저장할 하위 폴더명
+                        eyelmdir = 'eyelm_img/'
+                        # 전체 경로 포함 
+                        eyelmname = self.imgfile.split('/')[0] + '/' + eyelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_eyelm' # 눈 부분만 저장
+                        hpd.get_eye(image=original, path=eyelmname)
                         #print(angles) #angle
                         #print(bbox)
-                        print(f'Saved frame{self.cnt}.jpg')
+                        imgname = f'{self.imgfile}frame{self.cnt}.jpg' # 캡쳐한 raw 이미지 저장
+                        cv2.imwrite(imgname, original)
+                        print(f'Saved frame{self.cnt}.jpg') 
+                        
                         self.cnt += 1
         cap.release()
         cv2.destroyAllWindows()
-        return ang, box, facelmname
+        return ang, box, facelmname, eyelmlist
