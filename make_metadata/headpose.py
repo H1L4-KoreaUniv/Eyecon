@@ -69,6 +69,41 @@ class HeadposeDetection():
 
         self.v = verbose
 
+    def get_eye(self, image, path):
+        detector = dlib.get_frontal_face_detector()
+        predictor = self.landmark_predictor
+        faces = detector(image)
+        for face in faces:
+            x1, y1, x2, y2 = face.left(), face.top(), face.right(), face.bottom()
+            # cv2.rectangle(image, (x1, y1), (x2, y2), (0, 0, 255), thickness=2)
+
+            landmarks = predictor(image, face)
+            for n in range(0, 68):
+                x = landmarks.part(n).x
+                y = landmarks.part(n).y
+
+        eye0_bbox = int((landmarks.part(39).x -landmarks.part(36).x)/2 +10)
+        eye0_center_x = int((landmarks.part(39).x + landmarks.part(36).x)/2)
+        eye0_center_y = int((landmarks.part(39).y + landmarks.part(36).y)/2)
+        eye0x1 = eye0_center_x - eye0_bbox
+        eye0x2 = eye0_center_x + eye0_bbox
+        eye0y1 = eye0_center_y - eye0_bbox
+        eye0y2 = eye0_center_y + eye0_bbox
+        
+        eye1_bbox = int((landmarks.part(45).x -landmarks.part(42).x)/2 +10)
+        eye1_center_x = int((landmarks.part(45).x + landmarks.part(42).x)/2)
+        eye1_center_y = int((landmarks.part(45).y + landmarks.part(42).y)/2)
+        eye1x1 = eye1_center_x - eye1_bbox
+        eye1x2 = eye1_center_x + eye1_bbox
+        eye1y1 = eye1_center_y - eye1_bbox
+        eye1y2 = eye1_center_y + eye1_bbox
+        
+        cv2.imwrite(path+'_left.jpg',
+                           cv2.resize(image[eye0y1:eye0y2,eye0x1:eye0x2], dsize=(100, 100), interpolation=cv2.INTER_AREA))
+    
+        cv2.imwrite(path+'_right.jpg',
+                    cv2.resize(image[eye1y1:eye1y2,eye1x1:eye1x2], dsize=(100, 100), interpolation=cv2.INTER_AREA))
+            
 
     def to_numpy(self, landmarks):
         coords = []
@@ -194,6 +229,7 @@ class HeadposeDetection():
             if self.v: 
                 pass
                 #print(', draw: %.2f' % t.toc('draw'), end='ms' + ' ' * 10)
+        
         return im, angles, bbox
 
 
