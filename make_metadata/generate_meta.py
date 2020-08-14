@@ -18,7 +18,8 @@ def parse_name(name): #find label data
     label = nsp[0]
     movement= nsp[1]
     version = nsp[2][3]
-    subject = nsp[3]
+    subject = nsp[3] # LDH.mp4
+    subject = subject.split('.')[0] # LDH
     return label,movement,version,subject
 
 
