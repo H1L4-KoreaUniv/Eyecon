@@ -1,4 +1,4 @@
-#
+# headpose_video.py
 #   Headpose Detection for Video
 #   Written by Qhan
 #   Last Update: 2019.1.9
@@ -24,9 +24,10 @@ class Headpose_video():
         y1=int(bbox[1]) 
         y2=int(bbox[3])
         # 얼굴 사진 따로 저장할 하위 폴더명
-        facelmdir = 'facelm_img/'
+        facelmdir = '/Users/hong-yujin/Downloads/input_img/facelm_img/'
         # 전체 경로 포함한 저장 파일명
-        facelmname = self.imgfile.split('/')[0] + '/' + facelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_facelm.jpg'
+        facelmname=facelmdir+self.imgfile.split('/')[-1]+f'_frame{self.cnt}_facelm.jpg'
+        #facelmname = self.imgfile.split('/')[0] + '/' + facelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_facelm.jpg'
         cv2.imwrite(facelmname, cv2.resize(original[ y1:y2, x1:x1+y2-y1], dsize=(300, 300), interpolation=cv2.INTER_AREA))
         return facelmname
 
@@ -53,21 +54,29 @@ class Headpose_video():
                 frame, angles, bbox = hpd.process_image(frame)
                 
                 if bbox is None:
+                    print("pass bbox")
                     continue
                 else:
                     if(int(cap.get(1)) % 30 == 0): #fps에 따라 다르게
+                        eyelmdir = '/Users/hong-yujin/Downloads/input_img/eyelm_img/'
+                        eyelmname= eyelmdir+ self.imgfile.split('/')[-1]+f'_frame{self.cnt}_eyelm'
+                        if(hpd.get_eye(image=original, path=eyelmname) is None):
+                            print("pass get eye")
+                            continue
                         facelmname.append(self.get_land_img(bbox,original))
                         ang.append(angles)
                         box.append(bbox)
                         eyelmlist.append(eyelm)
                         # 눈 사진 따로 저장할 하위 폴더명
-                        eyelmdir = 'eyelm_img/'
-                        # 전체 경로 포함 
-                        eyelmname = self.imgfile.split('/')[0] + '/' + eyelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_eyelm' # 눈 부분만 저장
-                        hpd.get_eye(image=original, path=eyelmname)
+                        eyelmdir = '/Users/hong-yujin/Downloads/input_img/eyelm_img/'
+                        # 전체 경로 포함
+                        
+                        #eyelmname = self.imgfile.split('/')[0] + '/' + eyelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_eyelm' # 눈 부분만 저장
+                        #hpd.get_eye(image=original, path=eyelmname)
                         #print(angles) #angle
                         #print(bbox)
-                        imgname = f'{self.imgfile}frame{self.cnt}.jpg' # 캡쳐한 raw 이미지 저장
+                        temp = self.imgfile.split('/')[-1]
+                        imgname = '/Users/hong-yujin/Downloads/input_img/raw_img/'+f'{temp}_frame{self.cnt}.jpg' # 캡쳐한 raw 이미지 저장
                         cv2.imwrite(imgname, original)
                         print(f'Saved frame{self.cnt}.jpg') 
                         
