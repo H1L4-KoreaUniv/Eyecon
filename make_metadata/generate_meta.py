@@ -7,7 +7,7 @@ import os
 from collections import OrderedDict
 
 #find all video
-path_dir = '/Users/hong-yujin/Downloads/input_video/ver2/' #path of video dir
+path_dir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Video/ver3/' #path of video dir
 file_list = os.listdir(path_dir)
 file_list.sort()
 print(file_list)
@@ -18,12 +18,12 @@ def parse_name(name): #find label data
     label = nsp[0]
     movement = nsp[1]
     version = nsp[2][3]
-<<<<<<< HEAD
+# <<<<<<< HEAD
     subject = nsp[3].split('.')[0]
-=======
+# =======
     subject = nsp[3] # LDH.mp4
     subject = subject.split('.')[0] # LDH
->>>>>>> c6f0492cef010ab38a48b926fdaca3df5bb83344
+# >>>>>>> c6f0492cef010ab38a48b926fdaca3df5bb83344
     return label, movement, version, subject
 
 
@@ -43,7 +43,7 @@ def get_json(subject, file_name, label, movement, version, head_pose, facelm, fa
     data.append(file_data)
 
 
-imgdir = '/Users/hong-yujin/Downloads/input_img/'
+imgdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/'
 rawimgdir = imgdir + 'raw_img/' #path of imgdir 
 for video in file_list:
     if video == '.DS_Store':
@@ -76,5 +76,5 @@ datadict = {}
 datadict['data'] = data 
 json.dumps(datadict, ensure_ascii=False, indent="\t")
 
-with open('metadata_HYJ.json', 'w', encoding="utf-8") as make_file:
+with open('metadata_ver3_LJW3.json', 'w', encoding="utf-8") as make_file:
     json.dump(datadict, make_file, ensure_ascii=False, indent='\t')
