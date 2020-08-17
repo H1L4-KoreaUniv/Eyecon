@@ -65,34 +65,38 @@ class Headpose_video():
                     print("pass bbox")
                     continue
                 else:
-                    if(int(cap.get(1)) % 16 == 0):  #fps에 따라 다르게
-                        eyelmdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/eyelm_img/'
-                        eyelmname = eyelmdir + self.imgfile.split('/')[-1] + f'_frame{self.cnt}_eyelm'
-                        if(hpd.get_eye(image=original, path=eyelmname) is None):
-                            print("pass get eye")
-                            continue
-                        tmp = self.get_land_img(bbox,original)
-                        if (tmp is not None):
-                            facelmname.append(tmp)
-                        else:
-                            continue
-                        ang.append(angles)
-                        box.append(bbox)
-                        eyelmlist.append(eyelm)
-                        # 눈 사진 따로 저장할 하위 폴더명
-                        eyelmdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/eyelm_img/'
-                        # 전체 경로 포함
+                    try:
                         
-                        #eyelmname = self.imgfile.split('/')[0] + '/' + eyelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_eyelm'  # 눈 부분만 저장
-                        #hpd.get_eye(image=original, path=eyelmname)
-                        #print(angles) #angle
-                        #print(bbox)
-                        temp = self.imgfile.split('/')[-1]
-                        imgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/raw_img/'+f'{temp}_frame{self.cnt}.jpg'  # 캡쳐한 raw 이미지 저장
-                        cv2.imwrite(imgname, original)
-                        print(f'Saved frame{self.cnt}.jpg') 
-                        
-                        self.cnt += 1
+                        if(int(cap.get(1)) % 16 == 0):  #fps에 따라 다르게
+                            eyelmdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/eyelm_img/'
+                            eyelmname = eyelmdir + self.imgfile.split('/')[-1] + f'_frame{self.cnt}_eyelm'
+                            if(hpd.get_eye(image=original, path=eyelmname) is None):
+                                print("pass get eye")
+                                continue
+                            tmp = self.get_land_img(bbox,original)
+                            if (tmp is not None):
+                                facelmname.append(tmp)
+                            else:
+                                continue
+                            ang.append(angles)
+                            box.append(bbox)
+                            eyelmlist.append(eyelm)
+                            # 눈 사진 따로 저장할 하위 폴더명
+                            eyelmdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/eyelm_img/'
+                            # 전체 경로 포함
+
+                            #eyelmname = self.imgfile.split('/')[0] + '/' + eyelmdir + self.imgfile.split('/')[-1] + f'frame{self.cnt}_eyelm'  # 눈 부분만 저장
+                            #hpd.get_eye(image=original, path=eyelmname)
+                            #print(angles) #angle
+                            #print(bbox)
+                            temp = self.imgfile.split('/')[-1]
+                            imgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/raw_img/'+f'{temp}_frame{self.cnt}.jpg'  # 캡쳐한 raw 이미지 저장
+                            cv2.imwrite(imgname, original)
+                            print(f'Saved frame{self.cnt}.jpg') 
+
+                            self.cnt += 1
+                    except Exception as ex:
+                        print('error: ', ex)
         cap.release()
         cv2.destroyAllWindows()
         return ang, box, facelmname, eyelmlist
