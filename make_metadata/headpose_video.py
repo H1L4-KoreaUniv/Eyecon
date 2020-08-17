@@ -23,7 +23,7 @@ class Headpose_video():
         x1 = int(bbox[0]) 
         y1 = int(bbox[1]) 
         y2 = int(bbox[3])
-        # 얼굴 사진 따로 저장할 하위 폴더명
+        # 얼굴 사진 따로 저장할 하위 폴더명 
         facelmdir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/Image/ver3/facelm_img/'
         # 전체 경로 포함한 저장 파일명
         facelmname = facelmdir + self.imgfile.split('/')[-1] + f'_frame{self.cnt}_facelm.jpg'

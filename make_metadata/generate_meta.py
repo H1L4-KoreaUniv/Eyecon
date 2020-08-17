@@ -20,7 +20,7 @@ def parse_name(name): #find label data
     version = nsp[2][3]
 # <<<<<< HEAD
     subject = nsp[3].split('.')[0]
-# =======
+# ======
     subject = nsp[3] # LDH.mp4
     subject = subject.split('.')[0] # LDH
 # >>>>>>> c6f0492cef010ab38a48b926fdaca3df5bb83344
