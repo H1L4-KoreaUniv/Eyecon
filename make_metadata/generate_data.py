@@ -1,6 +1,5 @@
 """
 Created on Tue Aug 18 22:28:19 2020
-
 @author: 이다혜
 """
 import cv2
@@ -13,7 +12,7 @@ import json
 from collections import OrderedDict
 
 # NOTICE ======================================================================
-# 비디오 파일명 형식 : 1_ver1_LDH3.mp4
+# 비디오 파일명 형식 : 1_free_ver1_LDH3.mp4
 # 아래 directory가 모두 동위에 있어야 함, 그렇지 않을 경우 경로 수정 필
 '''
 - video # 비디오 있는 폴더
@@ -33,11 +32,11 @@ print(file_list)
 
 # 비디오 파일 이름 파싱
 def parse_name(videoname): #find label data
-    #1_ver1_LDH3.mp4
+    #1_free_ver1_LDH3.mp4
     nsp = videoname.split('_') #name split
     label = nsp[0]
-    version = nsp[1][3]
-    subject = nsp[2].split('.')[0]
+    version = nsp[2][3]
+    subject = nsp[3].split('.')[0]
     return videoname, label, version, subject
 
 data = [] #list of metadata 
@@ -78,7 +77,7 @@ def preprocessing(videoname):
         if count % (30*sec) == 0:
             framenum = int(count/30)
             _, angles, bbox = hpd.process_image(frame)
-            landmark_coords, _, _ = hpd.get_landmarks(frame)
+            landmark_coords, _, _ = hpd.get_landmarks(original)
             
             # head pose, landmark 둘 다 제대로 잡았는지 검사
             if (angles is not None) and (landmark_coords is not None): 
@@ -111,10 +110,12 @@ def preprocessing(videoname):
                 facelmname = imgname + f'_frame{framenum}_facelm.jpg'
                 eyelmname = [imgname + f'_frame{framenum}_eyelm_left.jpg', imgname + f'_frame{framenum}_eyelm_right.jpg']
                 
+                
                 print('Saved frame%d' % framenum)
+                print(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
                 get_json(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
             else:
-                print('pass frame')
+                print('pass frame due to head pose')
 #==============================================================================
 
 # 함수 호출
@@ -132,4 +133,3 @@ json.dumps(datadict, ensure_ascii=False, indent="\t")
 with open(f'metadata_ver1_LDH3.json', 'w', encoding="utf-8") as make_file:
     json.dump(datadict, make_file, ensure_ascii=False, indent='\t')
     
-
