@@ -9,12 +9,12 @@ import dlib
 import numpy as np
 import os
 import os.path as osp
-
 from timer import Timer
 from utils import Annotator
 
 
 t = Timer()
+
 
 class HeadposeDetection():
     # 3D facial model coordinates
@@ -69,51 +69,18 @@ class HeadposeDetection():
 
         self.v = verbose
 
-    def get_eye(self, image, path):
-        detector = dlib.get_frontal_face_detector()
-        predictor = self.landmark_predictor
-        faces = detector(image)
-        if len(faces) > 0:
-            for face in faces:
-                x1, y1, x2, y2 = face.left(), face.top(), face.right(), face.bottom()
-                # cv2.rectangle(image, (x1, y1), (x2, y2), (0, 0, 255), thickness=2)
-
-                landmarks = predictor(image, face)
-                for n in range(0, 68):
-                    x = landmarks.part(n).x
-                    y = landmarks.part(n).y
-
-            eye0_bbox = int((landmarks.part(39).x -landmarks.part(36).x)/2 +10)
-            eye0_center_x = int((landmarks.part(39).x + landmarks.part(36).x)/2)
-            eye0_center_y = int((landmarks.part(39).y + landmarks.part(36).y)/2)
-            eye0x1 = eye0_center_x - eye0_bbox
-            eye0x2 = eye0_center_x + eye0_bbox
-            eye0y1 = eye0_center_y - eye0_bbox
-            eye0y2 = eye0_center_y + eye0_bbox
-            
-            eye1_bbox = int((landmarks.part(45).x -landmarks.part(42).x)/2 +10)
-            eye1_center_x = int((landmarks.part(45).x + landmarks.part(42).x)/2)
-            eye1_center_y = int((landmarks.part(45).y + landmarks.part(42).y)/2)
-            eye1x1 = eye1_center_x - eye1_bbox
-            eye1x2 = eye1_center_x + eye1_bbox
-            eye1y1 = eye1_center_y - eye1_bbox
-            eye1y2 = eye1_center_y + eye1_bbox
-            
-            cv2.imwrite(path+'_left.jpg',
-                            cv2.resize(image[eye0y1:eye0y2,eye0x1:eye0x2], dsize=(100, 100), interpolation=cv2.INTER_AREA))
-        
-            cv2.imwrite(path+'_right.jpg',
-                        cv2.resize(image[eye1y1:eye1y2,eye1x1:eye1x2], dsize=(100, 100), interpolation=cv2.INTER_AREA))
-            return 1
-        else:
-            return None
-            
-
     def to_numpy(self, landmarks):
         coords = []
         for i in self.lm_2d_index:
             coords += [[landmarks.part(i).x, landmarks.part(i).y]]
         return np.array(coords).astype(np.int)
+    
+    # 위에 있던 to_numpy는 14개 점만 반환, 이건 68개 점 모두를 저장하도록 만든 함수
+    def landmarks_to_numpy(self, landmarks):
+        coords = []
+        for i in range(0, 68):
+            coords += [[landmarks.part(i).x, landmarks.part(i).y]]
+        return coords
 
     def get_landmarks(self, im):
         # Detect bounding boxes of faces
@@ -127,20 +94,20 @@ class HeadposeDetection():
         if len(rects) > 0:
             # Detect landmark of first face
             t.tic('lm')
-            landmarks_2d = self.landmark_predictor(im, rects[0])
+            landmarks_2d_coords = self.landmark_predictor(im, rects[0])
 
             # Choose specific landmarks corresponding to 3D facial model
-            landmarks_2d = self.to_numpy(landmarks_2d)
+            landmarks_2d = self.to_numpy(landmarks_2d_coords)
             if self.v: 
                 pass
                 #print(', lm: %.2f' % t.toc('lm'), end='ms')
                 
             rect = [rects[0].left(), rects[0].top(), rects[0].right(), rects[0].bottom()]
 
-            return landmarks_2d.astype(np.double), rect
+            return landmarks_2d_coords, landmarks_2d.astype(np.double), rect
 
         else:
-            return None, None
+            return None, None, None
 
 
     def get_headpose(self, im, landmarks_2d, verbose=False):
@@ -201,7 +168,7 @@ class HeadposeDetection():
     def process_image(self, im, draw=True, ma=3):
         # landmark Detection
         im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-        landmarks_2d, bbox = self.get_landmarks(im_gray)
+        _, landmarks_2d, bbox = self.get_landmarks(im_gray)
 
         # if no face deteced, return original image
         if landmarks_2d is None:
@@ -236,37 +203,10 @@ class HeadposeDetection():
         
         return im, angles, bbox
 
-
-# def main(args):
-#     in_dir = args["input_dir"]
-#     out_dir = args["output_dir"]
-
-#     # Initialize head pose detection
-#     hpd = HeadposeDetection(args["landmark_type"], args["landmark_predictor"])
-
-#     for filename in os.listdir(in_dir):
-#         name, ext = osp.splitext(filename)
-#         if ext in ['.jpg', '.png', '.gif']: 
-#             #print("> image:", filename, end='')
-#             image = cv2.imread(in_dir + filename)
-#             res, angles, tmp= hpd.process_image(image)
-#             cv2.imwrite(out_dir + name + '_out.png', res)
-#         else:
-#             pass
-#             #print("> skip:", filename, end='')
-#         #print('')
+    def main(image):
+        hpd = HeadposeDetection(1,'model/shape_predictor_68_face_landmarks.dat')
+        frame, angles, bbox = hpd.process_image(image)
+        return angles, bbox
 
 
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('-i', metavar='DIR', dest='input_dir', default='images/')
-#     parser.add_argument('-o', metavar='DIR', dest='output_dir', default='res/')
-#     parser.add_argument('-lt', metavar='N', dest='landmark_type', type=int, default=1, help='Landmark type.')
-#     parser.add_argument('-lp', metavar='FILE', dest='landmark_predictor', 
-#                         default='model/shape_predictor_68_face_landmarks.dat', help="Landmark predictor data file.")
-#     args = vars(parser.parse_args())
 
-#     if not osp.exists(args["output_dir"]): os.mkdir(args["output_dir"])
-#     if args["output_dir"][-1] != '/': args["output_dir"] += '/'
-#     if args["input_dir"][-1] != '/': args["input_dir"] += '/'
-#     main(args)
