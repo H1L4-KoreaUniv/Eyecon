@@ -1,16 +1,18 @@
 import flask
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, redirect, Response
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_login import current_user
 from datetime import datetime
+import cv2
+from Eyecon.webcamvideostream import gen, live_test
 # from sqlalchemy.sql.functions import user
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Eyecon.sqlite"
 app.config['SECRET_KEY'] = '619619'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.secret_key=b'aaa!111/'
+app.secret_key = b'aaa!111/'
 db = SQLAlchemy(app)
 login_manager = LoginManager(add_context_processor=False)
 login_manager.init_app(app)
@@ -26,7 +28,8 @@ class User(UserMixin, db.Model):
     def is_active(self):
         return True
 
-class Class( db.Model):
+
+class Class(db.Model):
     class_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     classname=db.Column(db.String)
     pname = db.Column(db.String)
@@ -34,6 +37,7 @@ class Class( db.Model):
     Date = db.Column(db.String)
     starttime=db.Column(db.String)
     endtime=db.Column(db.String)
+
 
 @login_manager.user_loader
 def get(id):
@@ -60,6 +64,7 @@ def register():
 @app.route('/add_class', methods=['GET'])
 def add_class_():
     return render_template('add_class.html',page='add_class')
+
 
 @app.route('/login', methods=['POST'])
 def login_post():
@@ -91,6 +96,7 @@ def register_post():
     # login_user(user)
     return redirect('/login')
 
+
 @app.route('/add_class', methods=['POST'])
 def add_class_post():
     classname=request.form['classname']
@@ -111,6 +117,7 @@ def logout():
     logout_user()
     return redirect('/')
 
+
 @app.route('/class', methods=['POST', 'GET'])
 def class_():
     print(Class.query.order_by(Class.class_id.desc()))
@@ -124,7 +131,7 @@ def class_():
         nowdt=datetime.strptime(now.strftime("%Y-%m-%d"),"%Y-%m-%d") #%H%M%S
         nowt=datetime.strptime(now.strftime("%H:%M"),"%H:%M")
         print(type(nowdt)," ",nowt)
-        if(dt==nowdt and st<nowt and nowt<et):
+        if (dt==nowdt and st<nowt and nowt<et):
             state='수업중'
         elif ((dt==nowdt and nowt<st) or dt>nowdt):
             state='수업전'
@@ -147,6 +154,21 @@ def class_():
 @app.route('/attend', methods=['POST', 'GET'])
 def attend():
     return render_template('attend.html')
+
+
+###################################################################################################################
+# live test
+
+# 웹캠을 화면에 스트리밍
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    # capture(cv2.VideoCapture(0))
+    # live_test(cv2.VideoCapture(0))
+    return Response(live_test(cv2.VideoCapture(0)), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+###################################################################################################################
+
 
 if __name__ == '__main__':
     app.run()
