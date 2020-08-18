@@ -4,7 +4,7 @@ Created on Tue Aug 18 22:28:19 2020
 """
 import cv2
 from headpose import HeadposeDetection
-from cut_facelm import get_facelm_img
+from cut_facelm import get_facelm_img, face_cut
 from cut_eyelm import get_eye
 import numpy as np
 import os
@@ -65,6 +65,7 @@ def preprocessing(videoname):
     # 몇 초마다 프레임 가져올건지?
     sec = 1
     count = 0
+    framenum = 0
     while video.isOpened():
         ret, frame = video.read()
         if frame is None:
@@ -75,9 +76,8 @@ def preprocessing(videoname):
         # input data 생성
         count += 1
         if count % (30*sec) == 0:
-            framenum = int(count/30)
             _, angles, bbox = hpd.process_image(frame)
-            landmark_coords, _, _ = hpd.get_landmarks(original)
+            landmark_coords, _,rect = hpd.get_landmarks(original)
             
             # head pose, landmark 둘 다 제대로 잡았는지 검사
             if (angles is not None) and (landmark_coords is not None): 
@@ -88,7 +88,7 @@ def preprocessing(videoname):
                 face_landmarks = landmarks
                 # face crop 되는지 확인
                 try:
-                    faceimg = get_facelm_img(bbox, original)
+                    faceimg = get_facelm_img(rect, original)
                 except:
                     print('pass frame') # 에러 뜨면 meatadata 저장 안함
                     continue 
@@ -110,9 +110,9 @@ def preprocessing(videoname):
                 facelmname = imgname + f'_frame{framenum}_facelm.jpg'
                 eyelmname = [imgname + f'_frame{framenum}_eyelm_left.jpg', imgname + f'_frame{framenum}_eyelm_right.jpg']
                 
-                
+                framenum += 1
                 print('Saved frame%d' % framenum)
-                print(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
+                # print(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
                 get_json(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
             else:
                 print('pass frame due to head pose')
