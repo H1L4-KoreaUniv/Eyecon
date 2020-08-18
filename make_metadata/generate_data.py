@@ -4,7 +4,7 @@ Created on Tue Aug 18 22:28:19 2020
 """
 import cv2
 from headpose import HeadposeDetection
-from cut_facelm import get_facelm_img, face_cut
+from cut_facelm import get_facelm_img
 from cut_eyelm import get_eye
 import numpy as np
 import os
