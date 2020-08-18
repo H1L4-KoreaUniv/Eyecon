@@ -105,8 +105,8 @@ def preprocessing(videoname):
                 cv2.imwrite(faceimgname, faceimg)
                 lefteyeimgname = 'eyelm_img/' + imgname + f'_frame{framenum}_eyelm_left.jpg'
                 righteyeimgname = 'eyelm_img/' + imgname + f'_frame{framenum}_eyelm_right.jpg'
-                cv2.imwrite(lefteyeimgname + '_lefteyelm_img.jpg', lefteyeimg)
-                cv2.imwrite(righteyeimgname + '_righteyelm_img.jpg', righteyeimg)
+                cv2.imwrite(lefteyeimgname, lefteyeimg)
+                cv2.imwrite(righteyeimgname, righteyeimg)
                 
                 facelmname = imgname + f'_frame{framenum}_facelm.jpg'
                 eyelmname = [imgname + f'_frame{framenum}_eyelm_left.jpg', imgname + f'_frame{framenum}_eyelm_right.jpg']
