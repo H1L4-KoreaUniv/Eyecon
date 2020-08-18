@@ -27,7 +27,7 @@
 - Current Plan
 ![image](https://user-images.githubusercontent.com/61040406/90466774-919df100-e14d-11ea-81db-9b82ef6ed6c2.png)
 1) 화면을 보는(1)/보지 않는(0) 데이터 생성
-2) raw 데이터의 **얼굴** crop, **눈** crop, **얼굴 landmark** 값(api 사용), **head pose** 값(pithc-yaw-roll)(api 사용), **동공 좌표** 값(api 사용)
+2) raw 데이터의 **얼굴** crop, **눈** crop, **얼굴 landmark** 값(api 사용), **head pose** 값(pitch-yaw-roll)(api 사용), **동공 좌표** 값(api 사용)
 3) **얼굴**과 **눈**은 각각 CNN의 인풋, 나머지 3개는 Fusion layer의 인풋.
 4) Binary classification 모델 학습
 
