@@ -9,8 +9,8 @@ import dlib
 import numpy as np
 import os
 import os.path as osp
-from .timer import Timer
-from .utils import Annotator
+from timer import Timer
+from utils import Annotator
 
 
 t = Timer()

@@ -11,7 +11,7 @@
     <title>Eyecon</title>
 
   </head>
-
+    <script> function btn(){ alert('수업에 참가할 수 없습니다'); } </script>
   <style>
     .container{
         padding-top: 2%;
@@ -42,7 +42,7 @@
                             <table class="table project-table table-centered table-nowrap">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">Class_id</th>
                                         <th scope="col" style="width: 40%">Class</th>
                                         <th scope="col">Department</th>
                                         <th scope="col">Professor</th>
@@ -66,9 +66,9 @@
                                         </td>
                                         <td  style="text-align: center;">
                                             {%if row['state']=='수업중' %}
-                                                <button type="button" onclick="location.href='/attend'" class="btn btn-success btn-sm">Attend</button>
+                                                <button type="button" onclick="location.href='/attend_check/class_id={{ row['#'] }}'" class="btn btn-success btn-sm">Attend</button>
                                             {% else %}
-                                                <button type="button" class="btn btn-danger btn-sm">Attend</button>
+                                                <button type="button" onclick="javascript:btn()" class="btn btn-danger btn-sm">Attend</button>
                                             {% endif %}
                                         </td>
                                     </tr>
