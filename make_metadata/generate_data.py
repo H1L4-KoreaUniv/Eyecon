@@ -21,7 +21,7 @@ from collections import OrderedDict
 - generate_data.py 
 '''
 # 반드시 json 파일 저장 이름 체크!! 덮어쓰지 않게 주의할 것
-# =============================================================================
+# ============================================================================
 
 # 비디오 폴더 경로 작성
 path_dir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Video_friend/' #path of video dir

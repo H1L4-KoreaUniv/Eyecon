@@ -1,5 +1,3 @@
-# Lee Jiwon
-# 2020-08-17-21:50
 # Check if there are 
 
 import os
