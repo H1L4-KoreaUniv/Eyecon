@@ -24,7 +24,7 @@ from collections import OrderedDict
 # =============================================================================
 
 # 비디오 폴더 경로 작성
-path_dir = 'video/' #path of video dir
+path_dir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Video_friend/' #path of video dir
 file_list = os.listdir(path_dir)
 file_list.sort()
 print(file_list)
@@ -75,7 +75,7 @@ def preprocessing(videoname):
 #==============================================================================
         # input data 생성
         count += 1
-        if count % (30*sec) == 0:
+        if count % (24*sec) == 0:
             _, angles, bbox = hpd.process_image(frame)
             landmark_coords, _,rect = hpd.get_landmarks(original)
             
@@ -100,10 +100,10 @@ def preprocessing(videoname):
                     continue 
 #==============================================================================                    
                 # 여기까지 문제 없으면 저장
-                faceimgname = 'facelm_img/' + imgname + f'_frame{framenum}_facelm.jpg'
+                faceimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/facelm_img/' + imgname + f'_frame{framenum}_facelm.jpg'
                 cv2.imwrite(faceimgname, faceimg)
-                lefteyeimgname = 'eyelm_img/' + imgname + f'_frame{framenum}_eyelm_left.jpg'
-                righteyeimgname = 'eyelm_img/' + imgname + f'_frame{framenum}_eyelm_right.jpg'
+                lefteyeimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/eyelm_img/' + imgname + f'_frame{framenum}_eyelm_left.jpg'
+                righteyeimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/eyelm_img/' + imgname + f'_frame{framenum}_eyelm_right.jpg'
                 cv2.imwrite(lefteyeimgname, lefteyeimg)
                 cv2.imwrite(righteyeimgname, righteyeimg)
                 
@@ -130,6 +130,6 @@ datadict = {}
 datadict['data'] = data 
 json.dumps(datadict, ensure_ascii=False, indent="\t")
 
-with open(f'metadata_ver1_LDH3.json', 'w', encoding="utf-8") as make_file:
+with open('C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/metadata_ver3_LJWFRIENDS1.json', 'w', encoding="utf-8") as make_file:
     json.dump(datadict, make_file, ensure_ascii=False, indent='\t')
     
