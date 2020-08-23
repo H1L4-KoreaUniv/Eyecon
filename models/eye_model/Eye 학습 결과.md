@@ -35,16 +35,16 @@
 
 ## Result
 
-![Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled.png](Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled.png)
+![Untitled.png](img/Untitled.png)
 
-![Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled%201.png](Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled%201.png)
+![Untitled%201.png](img/Untitled%201.png)
 
 Prediction:
 
 - prediction with unseen data(seen person)
 - prediction with unseen data(unseen person)
 
-    ![Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled%202.png](Eye%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%203d553bb8cefe41d9900781b14215eca9/Untitled%202.png)
+    ![Untitled%202.png](img/Untitled%202.png)
 
 ## Knowledge?
 
