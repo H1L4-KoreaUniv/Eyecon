@@ -24,11 +24,11 @@ Convolutional Neural Network를 이용한 이미지 분석 기반의 학습자 �
 
 ## Data
 
-> Raw Data
+### Raw Data
 
 노트북 화면 응시여부를 기준으로 0(화면 밖 응시)과 1(화면 안 응시)로 라벨링된 30명의 웹캠을 통해 촬영된 #시간 영상
 
-> Data Preprocessing
+### Data Preprocessing
 
 1. raw_data에서 [shape_predictor_68_face_landmarks.dat](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/make_metadata/model)를 이용해 추출한 총 #장의 얼굴 이미지와 해당 인물의 눈 이미지 #*2장 생성
 2. headpose estimation value (pitch-yaw-roll) 추출
@@ -41,19 +41,19 @@ Convolutional Neural Network를 이용한 이미지 분석 기반의 학습자 �
 
 ## Web
 
-> Registration page
+### Registration page
 
 ![image](https://user-images.githubusercontent.com/43233184/90980764-5f9aed80-e598-11ea-8eba-85481abe0e23.png)
 
 - 학생 혹은 교수자에 따라 회원가입 및 로그인
 
-> Creating Class
+### Creating Class
 
 ![image](https://user-images.githubusercontent.com/43233184/90980771-66c1fb80-e598-11ea-85a8-36a0bf7db2a9.png)
 
 - 교수는 자신이 원하는 수업을 개설할 수 있음
 
-> Class list and Verifying
+### Class list and Verifying
 
 ![image](https://user-images.githubusercontent.com/43233184/90980777-73465400-e598-11ea-8ebf-82174079fb13.png)
 
@@ -69,7 +69,7 @@ Convolutional Neural Network를 이용한 이미지 분석 기반의 학습자 �
     - Value 1 : 참여
     - Value 0 : 비참여
 
-> Attend page
+### Attend page
 
 - 추후 추가 예정
 
