@@ -82,5 +82,3 @@ Convolutional Neural Network를 이용한 이미지 분석 기반의 학습자 �
 - [https://github.com/qhan1028/Headpose-Detection](https://github.com/qhan1028/Headpose-Detection)
 - 김태동, 민병아, 이원욱, 박태준, 김태공, 이중엽, 이인성, 김진우, “온라인 강의시청 맥락에서 사용자 주도의 컨트롤제한을 통한 인지된 비통 제성이 강의 집중에 미치는 영향-심리적반발이론을 중심으로”, HCI Korea 2016 학술대회논문집 초록집 pp. 15-24, 2016. 1.
 - 김지혜, "개인 간, 개인 내에서 학습자의 학업불안과 지각된 유능성이 자기모니터링을 매개로 성취에 미치는 영향", 한국교원대학교 대학원 pp. 13-30, 51-59, 2020. 2.
-
-[Model README](https://www.notion.so/Model-README-e78eb098925e4d728b7a8fcc587063c7)
