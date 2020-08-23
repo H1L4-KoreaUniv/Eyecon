@@ -35,15 +35,15 @@
 
 ## Result
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled.png](img/Untitled.png)
+![Untitled.png](img/Untitled.png)
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%201.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%201.png)
+![Untitled%201.png](img/Untitled%201.png)
 
 Prediction:
 
 - prediction with unseen data(seen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%202.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%202.png)
+    ![Untitled%202.png](img/Untitled%202.png)
 
 - prediction with unseen data(unseen person)
 
@@ -82,15 +82,15 @@ Prediction:
 
 ## Result
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%203.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%203.png)
+![Untitled%203.png](img/Untitled%203.png)
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%204.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%204.png)
+![Untitled%204.png](img/Untitled%204.png)
 
 Prediction:
 
 - prediction with unseen data(seen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%205.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%205.png)
+    ![Untitled%205.png](img/Untitled%205.png)
 
 - prediction with unseen data(unseen person)
 
@@ -141,19 +141,19 @@ Prediction:
 
 ## Result
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%206.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%206.png)
+![Untitled%206.png](img/Untitled%206.png)
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%207.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%207.png)
+![Untitled%207.png](img/Untitled%207.png)
 
 Prediction:
 
 - prediction with unseen data(seen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%208.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%208.png)
+    ![Untitled%208.png](img/Untitled%208.png)
 
 - prediction with unseen data(unseen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%209.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%209.png)
+    ![Untitled%209.png](img/Untitled%209.png)
 
 ## Knowledge?
 
@@ -196,19 +196,19 @@ Prediction:
 
 ## Result
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2010.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2010.png)
+![Untitled%2010.png](img/Untitled%2010.png)
 
-![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2011.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2011.png)
+![Untitled%2011.png](img/Untitled%2011.png)
 
 Prediction:
 
 - prediction with unseen data(seen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2012.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2012.png)
+    ![Untitled%2012.png](img/Untitled%2012.png)
 
 - prediction with unseen data(unseen person)
 
-    ![Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2013.png](Face%20%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%20%E1%84%80%E1%85%A7%E1%86%AF%E1%84%80%E1%85%AA%202cb306e754ce46ed8790a87b0c5a5d5e/Untitled%2013.png)
+    ![Untitled%2013.png](img/Untitled%2013.png)
 
 ## Knowledge?
 
