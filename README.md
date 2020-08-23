@@ -39,7 +39,7 @@ Convolutional Neural Network를 이용한 이미지 분석 기반의 학습자 �
 
 ![image](https://user-images.githubusercontent.com/43233184/90980751-53169500-e598-11ea-80dc-94cb02115190.png)
 
-# Web
+## Web
 
 > Registration page
 
