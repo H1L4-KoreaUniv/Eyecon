@@ -1,8 +1,7 @@
 #
-#   Headpose Detection
-#   Modified by Qhan
-#   Last Update: 2019.1.9
+#   Referenced Code: https://github.com/qhan1028/Headpose-Detection
 #
+
 import argparse
 import cv2
 import dlib
