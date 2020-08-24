@@ -44,7 +44,7 @@
     - yaw : 고개를 좌, 우로 회전한 각도를 나타내며 좌로 움직인 경우 +값을, 우로 움직인 경우 -값을 가짐
     - roll : 고개를 좌, 우로 기울인 각도를 나타내며 좌로 움직인 경우 +값을, 우로 움직인 경우 -값을 가짐
 
-        <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a7e360b1-f139-4e63-9a9d-f611a596570f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200824%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200824T105136Z&X-Amz-Expires=86400&X-Amz-Signature=40947466714d521948f7826f325cb6a3f379e33189e2db45d2a8463e15829ebd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22" width="60%">
+        <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a7e360b1-f139-4e63-9a9d-f611a596570f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200824%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200824T105136Z&X-Amz-Expires=86400&X-Amz-Signature=40947466714d521948f7826f325cb6a3f379e33189e2db45d2a8463e15829ebd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22" width="30%">
 
 ### Usage
 
@@ -58,7 +58,5 @@
 - 
 
 # Exploratory Data Analysis
-
----
 
 주피터로 작성한 ipynb
