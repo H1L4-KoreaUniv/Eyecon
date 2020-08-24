@@ -31,7 +31,7 @@
     - pre-trained model(shape_predictor_68_face_landmarks.dat) 사용
     - 68개 점의 좌표를 array로 저장
 
-    ![https://images.velog.io/images/choiiis/post/27590ef9-4e31-4728-916f-e03a6f71b463/image.png](https://images.velog.io/images/choiiis/post/27590ef9-4e31-4728-916f-e03a6f71b463/image.png)
+    <img src="https://images.velog.io/images/choiiis/post/27590ef9-4e31-4728-916f-e03a6f71b463/image.png" width="30%">
 
 - Feature 2. 얼굴 부분만 추출한 이미지
     - face landmarks coodinates를 이용해 얼굴 부분만 crop
