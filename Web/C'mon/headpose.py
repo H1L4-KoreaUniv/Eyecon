@@ -81,6 +81,12 @@ class HeadposeDetection():
             coords += [[landmarks.part(i).x, landmarks.part(i).y]]
         return coords
 
+    def landmarks_to_numpy(self, landmarks):
+        coords = []
+        for i in range(0, 68):
+            coords += [[landmarks.part(i).x, landmarks.part(i).y]]
+        return coords
+
     def get_landmarks(self, im):
         # Detect bounding boxes of faces
         t.tic('bb')

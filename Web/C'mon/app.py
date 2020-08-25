@@ -1,26 +1,17 @@
 import flask
 # import socketio
 from flask import Flask, render_template, request, redirect, Response
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO,emit
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_login import current_user
 from datetime import datetime
 import cv2
-from webcamvideostream import gen, live_test
+#from webcamvideostream import gen, live_test
 import json
 import time
 
 from metadata import Meta
-
-metadata = Meta()
-###test
-from test import webcam
-from get_frame import Get_frame
-from process_frame import process_frame
-
-Frame = Get_frame(metadata)
-###
 
 
 app = Flask(__name__)
@@ -32,53 +23,18 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(add_context_processor=False)
 login_manager.init_app(app)
 
+metadata = Meta()
+###test
+socketio=SocketIO(app)
 
-###camera test###
-# from makeup_artist import Makeup_artist
-# from camera import Camera
-# import logging
-# from sys import stdout
-# from utils import base64_to_pil_image, pil_image_to_base64
-# app.logger.addHandler(logging.StreamHandler(stdout))
-#
-# socketio = SocketIO(app)
-#
-# camera = Camera(Makeup_artist())
-#
-# @socketio.on('input image', namespace='/test')
-# def test_message(input):
-#     input = input.split(",")[1]
-#     camera.enqueue_input(input)
-#     #camera.enqueue_input(base64_to_pil_image(input))
-#
-#
-# @socketio.on('connect', namespace='/test')
-# def test_connect():
-#     app.logger.info("client connected")
-#
-#
-# def gen():
-#     """Video streaming generator function."""
-#     app.logger.info("starting to generate frames!")
-#     while True:
-#         frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
-#
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-#
-# @app.route('/video_feed')
-# def video_feed():
-#     """Video streaming route. Put this in the src attribute of an img tag."""
-#     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-#
-#
-# @app.route('/temp')
-# def index():
-#     """Video streaming home page."""
-#     return render_template('temp.html')
+
+from live import webcam
+from get_frame import Get_frame
+from live_process import Process
+Process = Process(metadata)
+Frame = Get_frame(Process)
 
 ###
-
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -234,7 +190,7 @@ def attend_check(id):
 
 
 @app.route('/attend/class_id=<int:id>', methods=['POST'])
-def attend(id):
+def attend_enter(id):
     password = request.form['password']
     check = Class.query.filter_by(class_id=id, password=password).first()
     if check:
@@ -244,25 +200,28 @@ def attend(id):
                "location.href='/attend/class_id<int:id>'; </script>"
 
 
-# 웹캠을 화면에 스트리밍
-#
-# @app.route('/video_feed')
-# def video_feed():
-#     """Video streaming route. Put this in the src attribute of an img tag."""
-#     # capture(cv2.VideoCapture(0))
-#     # live_test(cv2.VideoCapture(0))
-#     return Response(live_test(cv2.VideoCapture(0), metadata), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 @app.route('/professor_page')
 def professor_page():
     return render_template('professor_page.html')
 
+@app.route('/class_result')
+def class_result():
+    return render_template('class_result.html')
+
+@app.route('/class_result_chart')
+def class_result_chart():
+    def generate_random_data():
+        for _ in metadata.student_info:
+            yield f"data:{_}\n\n"
+            time.sleep(1)
+    return Response(generate_random_data(), mimetype='text/event-stream')
+
 @app.route('/chart_data')
 def chart_data():
     def generate_random_data():
-        #print("meta : ",len(metadata.queue))
         while True:
             json_data = json.dumps(metadata.pop())
+            metadata.student_info.append(json_data)
             yield f"data:{json_data}\n\n"
             time.sleep(1)
 
@@ -271,37 +230,63 @@ def chart_data():
 
 ###test
 
-@app.route('/camtest')
-def camtest():
+@app.route('/test')
+def attend():
     return render_template('test.html')
 
 
-@app.route('/video_feed2')
-def video_feed2():
+@app.route('/live')
+def live():
     """Video streaming route. Put this in the src attribute of an img tag."""
     # capture(cv2.VideoCapture(0))
     # live_test(cv2.VideoCapture(0))
+
     return Response(webcam(cv2.VideoCapture(0), Frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
+@socketio.on('connect' , namespace='/testsocket')
+def connect():
+    print("@@@")
+    emit('response', {'hello': "Hello"})
 
 def gen():
     """Video streaming route. Put this in the src attribute of an img tag."""
     # capture(cv2.VideoCapture(0))
     # live_test(cv2.VideoCapture(0))
     while True:
-        frame = Frame.get_frame()  # pil_image_to_base64(camera.get_frame())
+        info = Frame.get_frame()  # pil_image_to_base64(camera.get_frame())
+        frame = info[0]
+        attendance=info[1]
         if frame is not None:
+            if attendance==1:
+                socketio.emit('message',{"goodby":"Goodbye"}, namespace='/testsocket')
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n')
         else:
             print("second frame is none")
 
-@app.route('/process')
-def process():
+@app.route('/live_process')
+def live_process():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 ### test
+#
+# @app.route('/chat')
+# def index():
+#     return render_template('chat.html')
+#
+# @socketio.on('connect', namespace='/mynamespace')
+# def connect():
+#     emit("response", {'data': 'Connected', 'username': 'yujin'})
+#
+# @socketio.on("request", namespace='/mynamespace')
+# def request(message):
+#     emit("response", {'data': message['data'], 'username': 'dd'},broadcast=True)
+
+###chattest
+
+
+###
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    socketio.run(app)

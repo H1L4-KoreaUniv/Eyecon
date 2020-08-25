@@ -2,6 +2,7 @@
 class Meta():
     def __init__(self):
         self.queue=[]
+        self.student_info=[]
 
     def push(self, input):
         #input type is json{ time, label, name}
