@@ -9,55 +9,62 @@ Original file is located at
 # Base
 """
 
-# import json
+import json
 import pandas as pd
-# import re
-# import numpy as np
+import re
+import numpy as np
 from sklearn.model_selection import train_test_split
 import cv2
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Model, Sequential, load_model
-from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, Dropout, Flatten, Activation
+from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, ZeroPadding2D, Dropout, Flatten, Activation, Concatenate
 
 import inspect
 import os
 
 
+# ====================================
+with open(r'C:\Users\sodaus\Desktop\data\ver4-6\metadata_ver4-6_merge.json') as json_file:
+    meta = json.load(json_file)
+    
+meta_df = pd.DataFrame()
+meta_df['frame_name'] = list(x['facelmname'][:-11] for x in meta['data'])
+# 0_ver3_LDH1_frame0
+meta_df['video_name'] = list(x['file_name'] for x in meta['data'])
+# 0_free_ver3_LDH1.mp4
+meta_df['subject'] = list(''.join(re.compile('[A-Z]').findall(x['subject'])) for x in meta['data'])
+# LDH
+# meta_df['head_pose'] = list([(np.array(list(x['head_pose'].values())).astype('float')) for x in meta['data']])
+# [-6.73000491 22.94420144 -3.0902351 ]
+meta_df['head_pose'] = list([(np.array(list(x['head_pose'].values())).astype('float')) for x in meta['data']])
+meta_df['face_landmarks'] = list([(x['face_landmarks']) for x in meta['data']])
+meta_df['faceimg_name'] = list(x['facelmname'] for x in meta['data'])
+# 0_ver3_LDH1_frame0_facelm.jpg
+meta_df['lefteyeimg_name'] = list(x['eyelmname'][0] for x in meta['data'])
+# 0_ver3_LDH1_frame0_eyelm_left.jpg
+meta_df['righteyeimg_name'] = list(x['eyelmname'][1] for x in meta['data'])
+# 0_ver3_LDH1_frame0_eyelm_right.jpg
+meta_df['label'] = list(x['label'] for x in meta['data'])
 
-# =====================================
-face_filename = sorted(os.listdir('/content/drive/My Drive/Korea_Univ/temp/facelm_img'))
-eyeleft_filename = sorted(os.listdir('/content/drive/My Drive/Korea_Univ/temp/eyelm_left_img'))
-eyeright_filename = sorted(os.listdir('/content/drive/My Drive/Korea_Univ/temp/eyelm_right_img'))
-
-LJW_df = pd.DataFrame()
-LJW_df['head_pose'] = [[0, 0, 0]] * 16
-LJW_df['faceimg_name'] = face_filename
-LJW_df['lefteyeimg_name'] = eyeleft_filename
-LJW_df['righteyeimg_name'] = eyeright_filename
-LJW_df['label'] = [0] * 8 + [1] * 8
 
 
+# ====================================
+# meta_df = pd.read_csv('/content/drive/Shared drives/H1L4/meta_df.csv')
+# meta_df.drop('Unnamed: 0', axis=1,inplace=True)
 
-# =====================================
-meta_df = pd.read_csv('/content/drive/Shared drives/H1L4/meta_df.csv')
-meta_df.drop('Unnamed: 0', axis=1,inplace=True)
-
-train, valid = train_test_split(LJW_df, test_size=0.2, random_state=42)
+train, valid = train_test_split(meta_df, test_size=0.2, random_state=42)
 train.reset_index(drop=True, inplace=True)
 valid.reset_index(drop=True, inplace=True)
 
-dir = '/content/drive/My Drive/Korea_Univ/temp/img/'
-# face_dir = '/content/drive/My Drive/Korea_Univ/temp/facelm_img/'
-# eyeleft_dir = '/content/drive/My Drive/Korea_Univ/temp/eyelm_left_img/'
-# eyeright_dir = '/content/drive/My Drive/Korea_Univ/temp/eyelm_right_img/'
+path = 'C:/Users/sodaus/Desktop/data/ver4-6/img/'
 
 def gen(dataframe, label=False):
   if bool(label) == False:
     for i in range(len(dataframe)):
-      face_img = tf.cast(cv2.cvtColor(cv2.imread(dir + dataframe['faceimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
-      eyeleft_img = tf.cast(cv2.cvtColor(cv2.imread(dir + dataframe['lefteyeimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
-      eyeright_img = tf.cast(cv2.cvtColor(cv2.imread(dir + dataframe['righteyeimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
+      face_img = tf.cast(cv2.cvtColor(cv2.imread(path + dataframe['faceimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
+      eyeleft_img = tf.cast(cv2.cvtColor(cv2.imread(path + dataframe['lefteyeimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
+      eyeright_img = tf.cast(cv2.cvtColor(cv2.imread(path + dataframe['righteyeimg_name'][i]), cv2.COLOR_BGR2RGB), tf.float32)
       headpose = dataframe['head_pose'][i]
       yield(face_img, eyeleft_img, eyeright_img, headpose)
   else:
@@ -92,13 +99,11 @@ y_valid_ds = tf.data.Dataset.from_generator(
 
 
 
-# ===================================
+# ================================
 IMAGE_SIZE = 224
-BATCH_SIZE = 4
+BATCH_SIZE = 32
 
-add_noise = tf.keras.Sequential([
-    tf.keras.layers.GaussianNoise(0.08)
-])
+add_noise = tf.keras.Sequential([tf.keras.layers.GaussianNoise(0.08)])
 def augment(face, eyeleft, eyeright, headpose):
   face = tf.image.resize(face, [IMAGE_SIZE, IMAGE_SIZE]) / 255.0
   eyeleft = tf.image.resize(eyeleft, [IMAGE_SIZE, IMAGE_SIZE]) / 255.0
@@ -121,39 +126,42 @@ def resize_and_rescale(face, eyeleft, eyeright, headpose):
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 train_ds = (tf.data.Dataset.zip((x_train_ds.cache().map(augment, num_parallel_calls=AUTOTUNE), 
-                                y_train_ds))
+                                 y_train_ds))
     .batch(BATCH_SIZE)
     .prefetch(AUTOTUNE)
 )
 valid_ds = (tf.data.Dataset.zip((x_valid_ds.cache().map(resize_and_rescale, num_parallel_calls=AUTOTUNE), 
-                                y_valid_ds))
+                                 y_valid_ds))
     .batch(BATCH_SIZE)
     .prefetch(AUTOTUNE)
 )
 
 
 
-# ===================================
+# ====================================
 # zip plot
 # num_batch: 3
 # input type: 3
 # frame in batch: 4
-list_train_ds = list(train_ds)
-plt.figure(figsize=(3, 16))
-for num_batch in range(3):
-  for frame_in_batch in range(4):
-    for input_type in range(3):
-      # print(12*(num_batch) + 3*(frame_in_batch) + input_type + 1)
-      plt.subplot(12, 3, (12*(num_batch) + 3*(frame_in_batch) + input_type + 1))
-      plt.imshow(list_train_ds[num_batch][0][input_type][frame_in_batch])
-      plt.axis('off')
+# list_train_ds = list(train_ds)
+# plt.figure(figsize=(3, 16))
+# for num_batch in range(3):
+#   for frame_in_batch in range(4):
+#     for input_type in range(3):
+#       # print(12*(num_batch) + 3*(frame_in_batch) + input_type + 1)
+#       plt.subplot(12, 3, (12*(num_batch) + 3*(frame_in_batch) + input_type + 1))
+#       plt.imshow(list_train_ds[num_batch][0][input_type][frame_in_batch])
+#       plt.axis('off')
 
 
 
 # ==============================
 # Face
 from tensorflow.keras.applications import MobileNetV2
-base_model_face = MobileNetV2(input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3), include_top=False, weights='imagenet', pooling='avg')
+base_model_face = MobileNetV2(input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3),
+                              include_top=False,
+                              weights='imagenet',
+                              pooling='avg')
 for layer in base_model_face.layers:
     layer.trainable = False
 face = Dense(128, activation='relu', name='face_fc_1')(base_model_face.output)  # same with [Krafka]
@@ -180,7 +188,6 @@ class eye_layers(tf.keras.layers.Layer):
     eye = self.ZeroPad_2(eye)
     eye = self.Conv_2(eye)
     return self.MaxPool_2(eye)
-
 eye_layers_ = eye_layers()
 eyeleft = eye_layers_(input_eyeleft)
 eyeright = eye_layers_(input_eyeright)
@@ -200,33 +207,55 @@ main = Dense(128, activation='relu', name='main_fc1')(main)  # same with [Krafka
 output_main = Dense(1, activation='sigmoid', name='main_fc2')(main)  # same with [Krafka]
 
 LEARNING_RATE = 0.001
-model = Model(inputs=[base_model_face.input, input_eyeleft, input_eyeright, input_headpose], outputs=output_main)
+model = Model(inputs=[base_model_face.input, input_eyeleft, input_eyeright, input_headpose],
+              outputs=output_main)
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE), 
               loss=tf.losses.BinaryCrossentropy(),
               metrics=['accuracy'])
-
 model.summary()
 
 
 
 # =============================
-checkpoint_path = "C:/Users/sodaus/Desktop/1stmodel/ver4_feh_mobile/cp-{epoch:04d}.ckpt"
-# checkpoint_dir = os.path.dirname(checkpoint_path)
-cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
-                                                 save_weights_only=True,
-                                                 verbose=2)
-cp_early_stopper = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=4)
+checkpoint_path = "C:/Users/sodaus/Desktop/1stmodel/model_name"
+cb_checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                   monitor='val_loss',
+                                                   save_weights_only=False,
+                                                   save_best_only=True,
+                                                   verbose=2)
+cb_earlystopper = tf.keras.callbacks.EarlyStopping(monitor='val_loss',
+                                                   patience=5)
 with tf.device('/device:GPU:0'):
   fit_history = model.fit(
       train_ds,
-      # steps_per_epoch=len(train_ds),
-      epochs=20,
+      epochs=5,
       validation_data=valid_ds,
-      # validation_steps=len(val_ds),
-      callbacks=[cp_callback, cp_early_stopper]
+      callbacks=[cb_checkpoint, cb_earlystopper]
   )
 
-# model.save('C:/Users/sodaus/Desktop/1stmodel/ver4_feh_mobile.h5')
-# new_model = tf.keras.models.load_model('C:/Users/sodaus/Desktop/1stmodel/4inputmodel_MobileNetV2.h5')
+
+
+# ==============================
+import matplotlib.pyplot as plt
+plt.subplot(2, 1, 1)
+plt.plot(fit_history.history["accuracy"])
+plt.plot(fit_history.history['val_accuracy'])
+plt.title("Accuracy")
+plt.xlabel("Epochs")
+plt.ylabel("Accuracy")
+plt.legend(["Accuracy", "Val Accuracy"])
+plt.subplot(2, 1, 2)
+plt.plot(fit_history.history["loss"])
+plt.plot(fit_history.history["val_loss"])
+plt.title("Loss")
+plt.xlabel("Epochs")
+plt.ylabel("Binary CrossEntropy")
+plt.legend(["Loss", "Val Loss"])
+plt.show()
+
+
+
+# ==============================
+new_model = tf.keras.models.load_model('C:/Users/sodaus/Desktop/1stmodel/model_name')
 # new_model.summary()
 # new_model.evaluate(valid_ds)
