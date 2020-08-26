@@ -170,10 +170,10 @@ face = Dense(64, activation='relu', name='face_fc_2')(face)  # same with [Krafka
 # Eye shared weights and fc before concat
 input_eyeleft = Input(shape=(224, 224, 3))
 input_eyeright = Input(shape=(224, 224, 3))
-class eye_layers(tf.keras.layers.Layer):
+class EyeLayer(tf.keras.layers.Layer):
   
   def __init__(self):
-    super(eye_layers, self).__init__()
+    super(EyeLayer, self).__init__()
     self.ZeroPad_1 = ZeroPadding2D(padding=(1, 1))
     self.Conv_1 = Conv2D(64, (3, 3), activation='relu')
     self.MaxPool_1 = MaxPooling2D(pool_size=(2, 2))
@@ -188,7 +188,7 @@ class eye_layers(tf.keras.layers.Layer):
     eye = self.ZeroPad_2(eye)
     eye = self.Conv_2(eye)
     return self.MaxPool_2(eye)
-eye_layers_ = eye_layers()
+eye_layers_ = EyeLayer()
 eyeleft = eye_layers_(input_eyeleft)
 eyeright = eye_layers_(input_eyeright)
 eyes = tf.keras.layers.concatenate([eyeleft, eyeright])
