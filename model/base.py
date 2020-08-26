@@ -9,10 +9,6 @@ Original file is located at
 # Base
 """
 
-# Commented out IPython magic to ensure Python compatibility.
-# %load_ext tensorboard
-import datetime, os
-
 # import json
 import pandas as pd
 # import re
@@ -229,71 +225,3 @@ with tf.device('/device:GPU:0'):
 # new_model = tf.keras.models.load_model('C:/Users/sodaus/Desktop/1stmodel/4inputmodel_MobileNetV2.h5')
 # new_model.summary()
 # new_model.evaluate(valid_ds)
-
-# Commented out IPython magic to ensure Python compatibility.
-# %tensorboard --logdir logs
-
-
-
-
-
-
-
-"""# Share Weight"""
-
-# ==============================
-# Face
-from tensorflow.keras.applications import MobileNetV2
-base_model_face = MobileNetV2(input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3), include_top=False, weights='imagenet', pooling='avg')
-for layer in base_model_face.layers:
-    layer.trainable = False
-face = Dense(128, activation='relu', name='face_fc_1')(base_model_face.output)  # same with [Krafka]
-face = Dense(64, activation='relu', name='face_fc_2')(face)  # same with [Krafka]
-
-# Eye shared weights and fc before concat
-input_eyeleft = Input(shape=(224, 224, 3))
-input_eyeright = Input(shape=(224, 224, 3))
-class eye_layers(tf.keras.layers.Layer):
-  
-  def __init__(self):
-    super(eye_layers, self).__init__()
-    self.ZeroPad_1 = ZeroPadding2D(padding=(1, 1))
-    self.Conv_1 = Conv2D(64, (3, 3), activation='relu')
-    self.MaxPool_1 = MaxPooling2D(pool_size=(2, 2))
-    self.ZeroPad_2 = ZeroPadding2D(padding=(1, 1))
-    self.Conv_2 = Conv2D(128, (3, 3), activation='relu')
-    self.MaxPool_2 = MaxPooling2D(pool_size=(2, 2))
-
-  def call(self, inputs):
-    eye = self.ZeroPad_1(inputs)
-    eye = self.Conv_1(eye)
-    eye = self.MaxPool_1(eye)
-    eye = self.ZeroPad_2(eye)
-    eye = self.Conv_2(eye)
-    return self.MaxPool_2(eye)
-
-eye_layers_ = eye_layers()
-eyeleft = eye_layers_(input_eyeleft)
-eyeright = eye_layers_(input_eyeright)
-eyes = tf.keras.layers.concatenate([eyeleft, eyeright])
-eyes = tf.keras.layers.GlobalAveragePooling2D()(eyes)
-# eyes = Flatten()(eyes)
-eyes = Dense(64, activation='relu', name='eyes_fc1')(eyes)  # 128 [Krafka]
-
-# headpose
-input_headpose = Input(shape=(3), name='headpose')  # same with [Zhang], [Palmero]
-
-# Concat
-main = tf.keras.layers.concatenate([face, eyes, input_headpose])
-main = Dense(128, activation='relu', name='main_fc1')(main)  # same with [Krafka]
-# x_5 = Dense(????, activation='relu')(x_5)  # same with [Palmero]
-# x_5 = Dense(????, activation='relu')(x_5)  # same with [Palmero]
-output_main = Dense(1, activation='sigmoid', name='main_fc2')(main)  # same with [Krafka]
-
-LEARNING_RATE = 0.001
-model = Model(inputs=[base_model_face.input, input_eyeleft, input_eyeright, input_headpose], outputs=output_main)
-model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE), 
-              loss=tf.losses.BinaryCrossentropy(),
-              metrics=['accuracy'])
-
-model.summary()
