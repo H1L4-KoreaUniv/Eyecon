@@ -210,18 +210,23 @@ model.summary()
 
 
 # =============================
-cb_early_stopper = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+checkpoint_path = "C:/Users/sodaus/Desktop/1stmodel/ver4_feh_mobile/cp-{epoch:04d}.ckpt"
+# checkpoint_dir = os.path.dirname(checkpoint_path)
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                 save_weights_only=True,
+                                                 verbose=2)
+cp_early_stopper = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=4)
 with tf.device('/device:GPU:0'):
   fit_history = model.fit(
       train_ds,
       # steps_per_epoch=len(train_ds),
-      epochs=5,
+      epochs=20,
       validation_data=valid_ds,
       # validation_steps=len(val_ds),
-      callbacks=[cb_early_stopper]
+      callbacks=[cp_callback, cp_early_stopper]
   )
-  
-# model.save('C:/Users/sodaus/Desktop/1stmodel/4inputmodel_MobileNetV2.h5')
+
+# model.save('C:/Users/sodaus/Desktop/1stmodel/ver4_feh_mobile.h5')
 # new_model = tf.keras.models.load_model('C:/Users/sodaus/Desktop/1stmodel/4inputmodel_MobileNetV2.h5')
 # new_model.summary()
 # new_model.evaluate(valid_ds)
