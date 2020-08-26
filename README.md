@@ -81,6 +81,9 @@
 # Reference
 
 - Palmero, C., Selva, J., Bagheri, M. A., & Escalera, S. (2018). Recurrent cnn for 3d gaze estimation using appearance and shape cues. arXiv preprint arXiv:1805.03064.
+- Zhang, X., Sugano, Y., Fritz, M., & Bulling, A. (2017). It's written all over your face: Full-face appearance-based gaze estimation. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (pp. 51-60).
+- Zhu, W., & Deng, H. (2017). Monocular free-head 3d gaze tracking with deep learning and geometry constraints. In Proceedings of the IEEE International Conference on Computer Vision (pp. 3143-3152).
 - Krafka, K., Khosla, A., Kellnhofer, P., Kannan, H., Bhandarkar, S., Matusik, W., & Torralba, A. (2016). Eye tracking for everyone. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 2176-2184).
+- Zhang, X., Sugano, Y., Fritz, M., & Bulling, A. (2015). Appearance-based gaze estimation in the wild. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 4511-4520).
 - 김태동, 민병아, 이원욱, 박태준, 김태공, 이중엽, ... & 김진우. (2016). 온라인 강의시청 맥락에서 사용자 주도의 컨트롤제한을 통한 인지된 비통제성이 강의 집중에 미치는 영향: 심리적반발이론을 중심으로. 한국 HCI 학회 학술대회, 15-24.
 - 김지혜. "개인 간, 개인 내에서 학습자의 학업불안과 지각된 유능성이 자기모니터링을 매개로 성취에 미치는 영향." 국내석사학위논문 한국교원대학교 대학원, 2020. 충청북도
