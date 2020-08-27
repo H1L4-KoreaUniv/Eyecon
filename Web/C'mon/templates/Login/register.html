@@ -21,7 +21,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <title>Eyecon</title>
+    <title>C'mon</title>
+    <style>
+        header.masthead {
+      padding-top: 2.5rem;
+      padding-bottom: 10rem;
+      text-align: center;
+      color: #fff;
+      background-image: url("/static/assets/img/header-sg.jpg");
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center center;
+      background-size: cover;
+    }
+    </style>
 </head>
 <style>
     .login-form{
@@ -30,6 +43,8 @@
 </style>
 <body>
  {% include 'navbar.html' %}
+ <header class="masthead"></header>
+
 {#<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">#}
 {#    <div class="container">#}
 {#        <a class="navbar-brand" href="#">Eyecon</a>#}

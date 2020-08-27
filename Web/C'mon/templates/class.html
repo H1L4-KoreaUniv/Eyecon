@@ -19,11 +19,31 @@
     thead{
         text-align: center;
     }
+    header.masthead {
+      padding-top: 2.5rem;
+      padding-bottom: 10rem;
+      text-align: center;
+      color: #fff;
+      background-image: url("/static/assets/img/header-sg.jpg");
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center center;
+      background-size: cover;
+    }
+
 </style>
   <body>
-    <div class="container-fluid">
-        {% include 'navbar.html' %}
-    </div>
+{#    <div class="container-fluid">#}
+{#        {% include 'navbar.html' %}#}
+{#    </div>#}
+{% include 'navbar.html' %}
+<header class="masthead"></header>
+{#            <div class="container">#}
+{#                <div class="masthead-subheading">Welcome To Our Studio!</div>#}
+{#                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>#}
+{#                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>#}
+{#            </div>#}
+{#        </header>#}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <div class="container">

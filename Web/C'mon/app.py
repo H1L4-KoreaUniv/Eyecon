@@ -1,18 +1,19 @@
-import flask
-# import socketio
 from flask import Flask, render_template, request, redirect, Response
-from flask_socketio import SocketIO,emit
+from flask_socketio import SocketIO, emit
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_login import current_user
 from datetime import datetime
 import cv2
-#from webcamvideostream import gen, live_test
 import json
 import time
 
+# 학생 수업 집중도 metadata
 from metadata import Meta
-
+from live import webcam
+from get_frame import Get_frame
+from live_process import Process
+from meta_process import process_chart_data
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Eyecon.sqlite"
@@ -23,19 +24,16 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(add_context_processor=False)
 login_manager.init_app(app)
 
+socketio = SocketIO(app)
 metadata = Meta()
-###test
-socketio=SocketIO(app)
 
-
-from live import webcam
-from get_frame import Get_frame
-from live_process import Process
 Process = Process(metadata)
 Frame = Get_frame(Process)
 
+
 ###
 
+# Create User db
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -47,6 +45,7 @@ class User(UserMixin, db.Model):
         return True
 
 
+# Create Class db
 class Class(db.Model):
     class_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     classname = db.Column(db.String)
@@ -63,10 +62,15 @@ def get(id):
     return User.query.get(id)
 
 
+# @app.route('/', methods=['GET'])
+# # @login_required
+# def home():
+#     print(current_user)
+#     return render_template('index.html', page='home')
+
 @app.route('/', methods=['GET'])
-# @login_required
 def home():
-    print(current_user)
+    # print(current_user)
     return render_template('index.html', page='home')
 
 
@@ -75,22 +79,13 @@ def login():
     return render_template('Login/login.html')
 
 
-#
-# @socketio.on('connect', namespace='/mynamespace')
-# def connect():
-#     emit("response", {'data': 'Connected', 'username': current_user.username})
-#
-# @socketio.on("request", namespace='/mynamespace')
-# def request(message):
-#     #queue에 저장
-#     pass
-
-
+# sign in
 @app.route('/register', methods=['GET'])
 def register():
     return render_template('Login/register.html')
 
 
+# add class for professor
 @app.route('/add_class', methods=['GET'])
 def add_class_():
     return render_template('add_class.html', page='add_class')
@@ -103,8 +98,7 @@ def login_post():
     user = User.query.filter_by(email=email, password=password).first()
     if user:
         login_user(user)
-        # flask.flash('Logged in successfully.')
-        return "<script>alert('Welcome to Eyecon World!'); " \
+        return "<script>alert('Welcome to Cmon World!'); " \
                "location.href='/'; </script>"
     else:
         return "<script>alert('Please check your email or password'); " \
@@ -113,7 +107,7 @@ def login_post():
 
 @app.route('/register', methods=['POST'])
 def register_post():
-    print(request.form)
+    # print(request.form)
     # print(request.form.getlist('username'))
     # print(request.form['username'])
     username = request.form['username']
@@ -150,6 +144,7 @@ def logout():
     return redirect('/')
 
 
+# get class list
 @app.route('/class', methods=['POST', 'GET'])
 def class_():
     # print(Class.query.order_by(Class.class_id.desc()))
@@ -183,12 +178,14 @@ def class_():
     return render_template('class.html', page='class', info=all_class)
 
 
+# class password check
 @app.route('/attend_check/class_id=<int:id>', methods=['GET'])
 def attend_check(id):
     post = Class.query.filter_by(class_id=id).first()
     return render_template('attend_check.html', post=post)
 
 
+# class password check and enter the class
 @app.route('/attend/class_id=<int:id>', methods=['POST'])
 def attend_enter(id):
     password = request.form['password']
@@ -200,93 +197,85 @@ def attend_enter(id):
                "location.href='/attend/class_id<int:id>'; </script>"
 
 
+# for live chart about student
 @app.route('/professor_page')
 def professor_page():
+    for _ in Process.headpose_list:
+        print(_)
     return render_template('professor_page.html')
 
-@app.route('/class_result')
-def class_result():
-    return render_template('class_result.html')
-
-@app.route('/class_result_chart')
-def class_result_chart():
-    def generate_random_data():
-        for _ in metadata.student_info:
-            yield f"data:{_}\n\n"
-            time.sleep(1)
-    return Response(generate_random_data(), mimetype='text/event-stream')
 
 @app.route('/chart_data')
 def chart_data():
     def generate_random_data():
         while True:
             json_data = json.dumps(metadata.pop())
-            metadata.student_info.append(json_data)
+
             yield f"data:{json_data}\n\n"
             time.sleep(1)
 
     return Response(generate_random_data(), mimetype='text/event-stream')
 
 
+# get result of student Focus Summary
+@app.route('/class_result')
+def class_result():
+    return render_template('class_result.html', data=process_chart_data(metadata))
+
+#
+# @app.route('/class_result_chart')
+# def class_result_chart():
+#     def generate_random_data():
+#         for _ in metadata.student_info:
+#             yield f"data:{_}\n\n"
+#             time.sleep(1)
+#
+#     return Response(generate_random_data(), mimetype='text/event-stream')
+
+
 ###test
 
+# 나중에 attend로 바#######################
 @app.route('/test')
 def attend():
     return render_template('test.html')
 
 
+#######################################
+
+# student's webcam screen
 @app.route('/live')
 def live():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    # capture(cv2.VideoCapture(0))
-    # live_test(cv2.VideoCapture(0))
-
     return Response(webcam(cv2.VideoCapture(0), Frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@socketio.on('connect' , namespace='/testsocket')
+
+@socketio.on('connect', namespace='/testsocket')
 def connect():
-    print("@@@")
     emit('response', {'hello': "Hello"})
 
+
 def gen():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    # capture(cv2.VideoCapture(0))
-    # live_test(cv2.VideoCapture(0))
     while True:
         info = Frame.get_frame()  # pil_image_to_base64(camera.get_frame())
         frame = info[0]
-        attendance=info[1]
+        focus = info[1]
         if frame is not None:
-            if attendance==1:
-                socketio.emit('message',{"goodby":"Goodbye"}, namespace='/testsocket')
+            if focus == 1:
+                # send message if student did not attend class for 3 minutes
+                socketio.emit('message', {"goodbye": "Goodbye"}, namespace='/testsocket')
+            # student state(red/blue)
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n')
         else:
-            print("second frame is none")
+            print("frame is none")
 
+
+# check whether the students are focused or not
 @app.route('/live_process')
 def live_process():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-### test
-#
-# @app.route('/chat')
-# def index():
-#     return render_template('chat.html')
-#
-# @socketio.on('connect', namespace='/mynamespace')
-# def connect():
-#     emit("response", {'data': 'Connected', 'username': 'yujin'})
-#
-# @socketio.on("request", namespace='/mynamespace')
-# def request(message):
-#     emit("response", {'data': message['data'], 'username': 'dd'},broadcast=True)
-
-###chattest
-
-
-###
 
 if __name__ == '__main__':
-    #app.run()
+    # app.run()
     socketio.run(app)

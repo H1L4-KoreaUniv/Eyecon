@@ -1,17 +1,14 @@
 import threading
 from time import sleep
-# from process_frame import  process_frame
 
-from flask_socketio import SocketIO, emit
 import cv2
 
-from app import socketio
 
 
 class Get_frame(object):
     def __init__(self, Process):
-        self.input_queue=[]
-        self.out_queue=[]
+        self.input_queue=[] #input frame
+        self.out_queue=[] #output frame
         self.process = Process
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
@@ -21,10 +18,10 @@ class Get_frame(object):
         if not self.input_queue:
             return
         input = self.input_queue.pop()
-        output_img,attendance = self.process.process_img(input)
-        output_img = cv2.flip(output_img, 1)  # 그냥 frame에 출력하면됌
+        output_img, focus = self.process.process_img(input) #get output_img(red/blue) and focous
+        output_img = cv2.flip(output_img, 1)
         ret, jpeg = cv2.imencode('.jpg', output_img)
-        self.out_queue.append([jpeg,attendance])
+        self.out_queue.append([jpeg,focus])
 
     def keep_processing(self):
         while True:
