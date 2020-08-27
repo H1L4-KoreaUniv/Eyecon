@@ -1,44 +1,187 @@
-<!DOCTYPE html> <html lang="en">
-<!-- <html lang="en" style="height: 100%"> -->
-<head> <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>C'mon</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- 차트 링크 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- 차트 링크 --> <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<br>
+<br>
 <div class="container">
-    <canvas id="myChart"></canvas>
-</div> <!-- 부트스트랩 -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-</script>
-<!-- 차트 -->
+    <br>
+    <div class="row">
+        <div class="col-12">
+            {% if data['grade'] == 'high' %}
+            <img src="{{ url_for('static', filename='assets/img/high_message.png') }}"width="1000" height="180" style="padding-left: 120px" >
+            {% elif data['grade']=='middle' %}
+            <img src="{{ url_for('static', filename='assets/img/mid_message.png') }} "width="1000" height="180" style="padding-left: 120px">
+            {% elif data['grade']=='low' %}
+            <img src="{{ url_for('static', filename='assets/img/low_message.png') }} "width="1000" height="180"style="padding-left: 120px">
+            {% endif %}
+        </div>
+    </div>
+<br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chart1" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chart2" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chart3" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<br>
+<br>
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx,
-        {
-            type: 'line',
-            data: { labels: {{[label|tojson}},
-                datasets: [{
-                    label: 'Student attendance',
-                    backgroundColor: 'transparent',
-                    borderColor: 'red',
-                    data: [0, 10, 5, 2, 20, 30, 45] }
-                    ]
+    var chartColors = {
+      red: 'rgb(255, 99, 132)',
+      orange: 'rgb(255, 159, 64)',
+      yellow: 'rgb(255, 205, 86)',
+      green: 'rgb(75, 192, 192)',
+      blue: 'rgb(54, 162, 235)',
+      purple: 'rgb(153, 102, 255)',
+      grey: 'rgb(231,233,237)'
+    };
+    var meta = {{ data|tojson}};
+    var Chart1 = {
+        type: 'line',
+        data: {
+            labels: meta.labels,
+            datasets: [{
+                label: 'origin data',
+                yAxisID: 'A',
+                data: meta.values,
+                borderWidth: 2,
+                borderColor: chartColors.red,
+                backgroundColor: chartColors.red,
+                pointRadius: 0.5,
+                fill: false,
+                {#steppedline: true,#}
+            }, {
+                label: 'Data rate',
+                data: meta.data_rate,
+                borderWidth: 1,
+                borderColor: chartColors.green,
+                backgroundColor: chartColors.green,
+                pointRadius: 0,
+                fill: false,
+                borderWidth: 2,
+                yAxisID: 'B',
+                {#xAxisID: 'x-axis-2',#}
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+
+            title: {
+                display: true,
+                text: 'label data'
             },
-            options: {}
+            tooltips: {
+              mode: 'nearest',
+              intersect: true,
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                      offsetGridLines: false,
+                    }
+                }, ],
+                yAxes: [{
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                  }, {
+                    id: 'B',
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                      max: 1,
+                      min: 0
+                    }
+                  }]
+            }
         }
-        );
+    }
+
+
+    var Chart2 = {
+      type: 'pie',
+      data: {
+        labels: ['unfocus','focus'],
+        datasets: [{
+          data: meta.value_count,
+            backgroundColor:[chartColors.red,chartColors.blue]
+        }
+        ]
+      },
+      options: {
+      }
+    }
+
+    var Chart3 = {
+      type: 'bar',
+      data: {
+        labels: ["Student1","Student2","Student3","Student4"],
+        datasets: [{
+          label: ['Warning'],
+          data: [meta.warning,5,10,3],
+            borderColor:'rgba(255, 205, 86)',
+            backgroundColor:'rgba(255, 205, 86)',
+        }]
+      },
+      options: {
+          scales: { yAxes:
+                  [{ ticks:
+                          { beginAtZero: true }
+          }
+                          ]
+          }
+      }
+    }
+    var ctxTwo = document.getElementById('chart2').getContext('2d');
+    new Chart(ctxTwo, Chart2);
+
+    var ctxThree = document.getElementById('chart3').getContext('2d');
+    new Chart(ctxThree, Chart3);
+    var ctxOne = document.getElementById('chart1').getContext('2d');
+    new Chart(ctxOne, Chart1);
+
+
 </script>
 </body>
 </html>
+{#
+{#                    {#ticks: {#}
+{#                    {#    stepSize: 10,#}
+{#                    {#    display: true,#}
+{#                    {#}

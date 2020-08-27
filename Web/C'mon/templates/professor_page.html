@@ -7,6 +7,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet">
 </head>
 <body>
+<br>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -32,14 +34,16 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: "Student Concentration",
+                    label: "Focus or not",
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
                     data: [],
                     fill: false,
+                    steppedline:true,
                 }],
             },
             options: {
+                steppedLine: 'before',
                 responsive: true,
                 title: {
                     display: true,
@@ -85,7 +89,7 @@
 
         source.onmessage = function (event) {
             const data = JSON.parse(event.data);
-            if (config.data.labels.length === 20) {
+            if (config.data.labels.length === 25) {
                 config.data.labels.shift();
                 config.data.datasets[0].data.shift();
             }
