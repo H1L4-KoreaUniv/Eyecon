@@ -34,42 +34,6 @@
 
 ## Web
 
-### Registration page
-
-![image](https://user-images.githubusercontent.com/43233184/90980764-5f9aed80-e598-11ea-8eba-85481abe0e23.png)
-
-- 학생 혹은 교수자에 따라 회원가입 및 로그인
-
-### Creating Class
-
-![image](https://user-images.githubusercontent.com/43233184/90980771-66c1fb80-e598-11ea-85a8-36a0bf7db2a9.png)
-
-- 교수는 자신이 원하는 수업을 개설할 수 있음
-
-### Class list and Verifying
-
-![image](https://user-images.githubusercontent.com/43233184/90980777-73465400-e598-11ea-8ebf-82174079fb13.png)
-
-![image](https://user-images.githubusercontent.com/43233184/90980786-793c3500-e598-11ea-8e7b-cc9ac05eb555.png)
-
-- 학생은 자신의 해당 수업에 수업 비밀번호를 입력하여 Attend
-
-> Chart for Instructor(추후 변경 예정)
-
-![image](https://user-images.githubusercontent.com/43233184/90980790-7e997f80-e598-11ea-983d-c973c65f8730.png)
-
-- 학습자의 수업 참여도 정보를 확인
-    - Value 1 : 참여
-    - Value 0 : 비참여
-
-### Attend page
-
-- 추후 추가 예정
-
-# Run
-
-- 추후 추가 예정
-
 # Repository
 
 ```
