@@ -12,61 +12,56 @@ from cut_facelm import get_facelm_img
 from cut_eyelm import get_eye
 
 # NOTICE ======================================================================
-# 비디오 파일명 형식 : 1_free_ver1_LDH3.mp4
-# 아래 directory가 모두 동위에 있어야 하며, 그렇지 않을 경우 경로 수정 필요
-'''
-- video # 비디오 있는 폴더
-- facelm_img # 얼굴 사진 저장할 폴더
-- eyelm_img # 눈 사진 저장할 폴더
-- generate_data.py 
-'''
+# 비디오 파일명 형식 : 1_LDH3.mp4
 # 반드시 json 파일 저장 이름 체크, 덮어쓰지 않게 주의할 것
 # ============================================================================
 
 # 비디오 폴더 경로 작성
-path_dir = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Video_friend/' #path of video dir
-file_list = os.listdir(path_dir)
+video_dir = 'C:/Users/sodaus/Desktop/data/ver3456final/video/' #path of video dir
+file_list = os.listdir(video_dir)
 file_list.sort()
 print(file_list)
 
+# 이미지 저장할 폴더 경로 작성
+img_dir = 'C:/Users/sodaus/Desktop/data/ver3456final/img/'
 
 # 비디오 파일 이름을 인자로 받아 parsing한 값을 리턴하는 함수
-def parse_name(videoname): 
-    temp = videoname.split('_') #name split
+def parse_name(video_name): 
+    temp = video_name.split('_') #name split
     label = temp[0]
-    version = temp[2][3]
-    subject = temp[3].split('.')[0]
-    return videoname, label, version, subject
+    subject = temp[1].split('.')[0]
+    
+    return video_name, label, subject
 
 
 # metadata를 저장하기 위한 함수
 data = [] #list of metadata 
-def get_json(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname): # get json
+def get_json(subject, video_name, frame_num, label, head_pose, face_landmarks, faceimg_name, eyeimg_name): # get json
     file_data = OrderedDict()
+    file_data["video_name"] = video_name
+    file_data["frame_num"] = frame_num
     file_data["subject"] = subject
-    file_data["file_name"] = file_name
-    file_data["label"] = label
-    file_data["version"] = version
+    file_data['label'] = label
     file_data["head_pose"] = {'pitch':str(head_pose[0]),'yaw':str(head_pose[1]),'roll':str(head_pose[2])}#pitch,yaw,roll
-    file_data["face_landmarks"] =face_landmarks
-    file_data["facelmname"] = facelmname
-    file_data["eyelmname"] = eyelmname
+    file_data["face_landmarks"] = face_landmarks
+    file_data["faceimg_name"] = faceimg_name
+    file_data["eyeimg_name"] = eyeimg_name
     data.append(file_data)
 
     
 # 비디오 파일 이름을 인자로 받는 data preprocessing 함수 
-def preprocessing(videoname):
+def preprocessing(video_name):
     hpd = HeadposeDetection(1, 'model/shape_predictor_68_face_landmarks.dat')
-    file_name, label, version, subject = parse_name(videoname)
-    imgname = f'{label}_ver{version}_{subject}'
-    print(path_dir + videoname)
-    video = cv2.VideoCapture(path_dir + videoname)
+    video_name, label, subject = parse_name(video_name)
+    img_name = f'{label}_{subject}'
+    print(video_dir + video_name)
+    video = cv2.VideoCapture(video_dir + video_name)
     # frame per sec 확인
     fps = int(video.get(cv2.CAP_PROP_FPS))
     # 해당 초(sec)마다 영상에서 프레임 추출
     sec = 1
     count = 0
-    framenum = 0
+    frame_num = 0
     
     while video.isOpened():
         ret, frame = video.read()
@@ -102,20 +97,20 @@ def preprocessing(videoname):
                     continue 
                    
                 # 모든 preprocessing 문제 없을 경우 이미지 저장
-                faceimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/facelm_img/' + imgname + f'_frame{framenum}_facelm.jpg'
-                cv2.imwrite(faceimgname, faceimg)
-                lefteyeimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/eyelm_img/' + imgname + f'_frame{framenum}_eyelm_left.jpg'
-                righteyeimgname = 'C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/eyelm_img/' + imgname + f'_frame{framenum}_eyelm_right.jpg'
-                cv2.imwrite(lefteyeimgname, lefteyeimg)
-                cv2.imwrite(righteyeimgname, righteyeimg)
+                faceimg_dir = img_dir + img_name + f'_frame{frame_num}_face.jpg'
+                cv2.imwrite(faceimg_dir, faceimg)
+                lefteyeimg_dir = img_dir + img_name + f'_frame{frame_num}_eye_left.jpg'
+                righteyeimg_dir = img_dir + img_name + f'_frame{frame_num}_eye_right.jpg'
+                cv2.imwrite(lefteyeimg_dir, lefteyeimg)
+                cv2.imwrite(righteyeimg_dir, righteyeimg)
                 
-                facelmname = imgname + f'_frame{framenum}_facelm.jpg'
-                eyelmname = [imgname + f'_frame{framenum}_eyelm_left.jpg', imgname + f'_frame{framenum}_eyelm_right.jpg']
+                faceimg_name = img_name + f'_frame{frame_num}_face.jpg'
+                eyeimg_name = [img_name + f'_frame{frame_num}_eye_left.jpg', img_name + f'_frame{frame_num}_eye_right.jpg']
                 
-                framenum += 1
-                print('Saved frame%d' % framenum)
-                # print(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
-                get_json(subject, file_name, label, version, head_pose, face_landmarks, facelmname, eyelmname)
+                print('Saved frame%d' % frame_num)
+                
+                get_json(subject, video_name, frame_num, label, head_pose, face_landmarks, faceimg_name, eyeimg_name)
+                frame_num += 1
             else:
                 print('pass frame due to head pose')
 
@@ -132,6 +127,6 @@ for video in file_list:
 datadict = {}
 datadict['data'] = data 
 json.dumps(datadict, ensure_ascii=False, indent="\t")
-with open('C:/Users/JIWON/workspace_python/Korea_Univ/Project/Data/ver3/Image_friend/metadata_ver3_LJWFRIENDS1.json', 'w', encoding="utf-8") as make_file:
+with open('C:/Users/sodaus/Desktop/data/ver3456final/final_metadata.json', 'w', encoding="utf-8") as make_file:
     json.dump(datadict, make_file, ensure_ascii=False, indent='\t')
     
