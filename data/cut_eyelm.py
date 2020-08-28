@@ -23,7 +23,7 @@ def get_eye(landmarks, image):
     eye1y2 = eye1_center_y + eye1_bbox
     
     # resize by 100*100
-    lefteye_img = cv2.resize(image[eye0y1:eye0y2, eye0x1:eye0x2], dsize=(100, 100), interpolation=cv2.INTER_AREA)
-    righteye_img = cv2.resize(image[eye1y1:eye1y2, eye1x1:eye1x2], dsize=(100, 100), interpolation=cv2.INTER_AREA)
+    lefteye_img = cv2.resize(image[eye0y1:eye0y2, eye0x1:eye0x2], dsize=(224, 224), interpolation=cv2.INTER_AREA)
+    righteye_img = cv2.resize(image[eye1y1:eye1y2, eye1x1:eye1x2], dsize=(224, 224), interpolation=cv2.INTER_AREA)
     
     return lefteye_img, righteye_img
