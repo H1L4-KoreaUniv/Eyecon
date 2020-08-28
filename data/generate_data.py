@@ -36,14 +36,14 @@ def parse_name(video_name):
 
 # metadata를 저장하기 위한 함수
 data = [] #list of metadata 
-def get_json(subject, video_name, frame_num, label, head_pose, face_landmarks, faceimg_name, eyeimg_name): # get json
+def get_json(subject, video_name, frame_num, label, head_pose, faceimg_name, eyeimg_name): # get json
     file_data = OrderedDict()
     file_data["video_name"] = video_name
     file_data["frame_num"] = frame_num
     file_data["subject"] = subject
     file_data['label'] = label
     file_data["head_pose"] = {'pitch':str(head_pose[0]),'yaw':str(head_pose[1]),'roll':str(head_pose[2])}#pitch,yaw,roll
-    file_data["face_landmarks"] = face_landmarks
+    # file_data["face_landmarks"] = face_landmarks
     file_data["faceimg_name"] = faceimg_name
     file_data["eyeimg_name"] = eyeimg_name
     data.append(file_data)
@@ -81,8 +81,8 @@ def preprocessing(video_name):
                 # head pose values
                 head_pose = angles
                 # face landmark coordinates
-                landmarks = hpd.landmarks_to_numpy(landmark_coords)
-                face_landmarks = landmarks
+                # landmarks = hpd.landmarks_to_numpy(landmark_coords)
+                # face_landmarks = landmarks
                 # face image 추출 되는지 확인
                 try:
                     faceimg = get_facelm_img(rect, original)
@@ -109,7 +109,7 @@ def preprocessing(video_name):
                 
                 print('Saved frame%d' % frame_num)
                 
-                get_json(subject, video_name, frame_num, label, head_pose, face_landmarks, faceimg_name, eyeimg_name)
+                get_json(subject, video_name, frame_num, label, head_pose, faceimg_name, eyeimg_name)
                 frame_num += 1
             else:
                 print('pass frame due to head pose')
@@ -127,6 +127,6 @@ for video in file_list:
 datadict = {}
 datadict['data'] = data 
 json.dumps(datadict, ensure_ascii=False, indent="\t")
-with open('C:/Users/sodaus/Desktop/data/ver3456final/final_metadata.json', 'w', encoding="utf-8") as make_file:
+with open('C:/Users/sodaus/Desktop/data/ver3456final/final_metadata2.json', 'w', encoding="utf-8") as make_file:
     json.dump(datadict, make_file, ensure_ascii=False, indent='\t')
-    
+
