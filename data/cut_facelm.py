@@ -8,6 +8,6 @@ def get_facelm_img(rect, original):
     y2 = int(rect[3])
     
     # resize by 300*300
-    facelm_img = cv2.resize(original[y1:y2, x1:x1 + y2 - y1], dsize=(300, 300), interpolation=cv2.INTER_AREA)
+    facelm_img = cv2.resize(original[y1:y2, x1:x1 + y2 - y1], dsize=(224, 224), interpolation=cv2.INTER_AREA)
     
     return facelm_img
