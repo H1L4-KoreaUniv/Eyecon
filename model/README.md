@@ -1,5 +1,3 @@
-# Model README
-
 # Model
 
 ![image](https://user-images.githubusercontent.com/61040406/91663643-2aa51280-eb25-11ea-8a99-bb7c8df9c260.png)
