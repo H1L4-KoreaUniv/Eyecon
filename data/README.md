@@ -6,14 +6,14 @@
     - landmark 검출 시 pre-trained model([shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)) 사용
 2. Face는 (154, 154, 3) Eye는 (224, 224, 3)로 resize 후 jpg파일로 저장
 
-<img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png" width="550px" height="120px">
+<img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png" width="550px">
 
 ### Headpose
 
 1. 원리
-<img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png" width="500" height="200">
-<img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png" width="500" height="200">
-<img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="500" height="200">
+<img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png" width="500">
+<img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png" width="300">
+<img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="300">
 
 
 - 우리가 알고 있는 좌표인 World coordination, Image plane coordination, Camera coordination을 이용해 Rotation value 검출하는 원리를 이용
@@ -23,7 +23,7 @@
 - [github open api](https://github.com/qhan1028/Headpose-Detection) 이용해 Rotation value인 pitch-yaw-roll(Euler angles) 값 추출
 
 
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655601-b9e20400-eaec-11ea-80ae-e31bef55f7ee.png"></p>
+<img src="https://user-images.githubusercontent.com/43233184/91655601-b9e20400-eaec-11ea-80ae-e31bef55f7ee.png" width="300">
 
 # Data EDA
 
@@ -62,14 +62,14 @@ memory usage: 1.0+ MB
 ### Correlation of Headpose
 
 #### Heatmap
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655614-c5352f80-eaec-11ea-94cb-2b4df370cb62.png"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655614-c5352f80-eaec-11ea-94cb-2b4df370cb62.png" width="90%"></p>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655617-c7978980-eaec-11ea-8add-b4da5af999b3.png"></p>
 
 ### Distribution of Headpose
 
 #### violin plot
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.png"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.png" width="90%"></p>
 
 
 # Make metadata
