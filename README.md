@@ -1,6 +1,7 @@
 # README
 
-# C'mon(CNN based online class participation monitoring system)
+# C'mon 
+## CNN based online class participation monitoring system
 
 1. 프로젝트 개요: Convolutional Neural Network를 이용한 이미지 분석 기반의 **실시간 비대면 수업 학습자 모니터링 시스템**
 2. 프로젝트 기간: 2020.07.06 ~ 2020.08.31
@@ -14,8 +15,7 @@
 
 ## C'mon System Architecture
 
-![img](![image](https://user-images.githubusercontent.com/43233184/91653317-7ed6d500-eada-11ea-8ccf-34e720ba21a9.png)
-)
+![img](https://user-images.githubusercontent.com/43233184/91653317-7ed6d500-eada-11ea-8ccf-34e720ba21a9.png)
 
 ## Repository
 
@@ -31,11 +31,3 @@
     - 모델을 위한 데이터 생성 및 전처리
 3. [model](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/model)
     - 학습자가 수업을 참여하는지 판단하기 위한 model 생성
-
-[Model README](https://www.notion.so/Model-README-e78eb098925e4d728b7a8fcc587063c7)
-
-[Data README](https://www.notion.so/Data-README-b71eb3accdff4cecb6a5e2ee95f95107)
-
-[Web README](https://www.notion.so/Web-README-d9c9373f1d484dde86cba81fa29b00ad)
-
-[waste](https://www.notion.so/waste-f807ebaf57ec48ae9b194a5daf0fd02c)
