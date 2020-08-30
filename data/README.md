@@ -8,17 +8,15 @@
     - landmark 검출 시 pre-trained model([shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)) 사용
 2. Face는 (154, 154, 3) Eye는 (224, 224, 3)로 resize 후 jpg파일로 저장
 
-<center><img src="/https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png){: width="300px"}{: .center" width="300" height="300"></center>
-![image](https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png){: width="300px"}{: .center}
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png"){: width="300px"}{: .center" width="500" height="200"></p>
+
 ### Headpose
 
 1. 원리
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png"){: width="300px"}{: .center" width="500" height="200"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png"){: width="300px"}{: .center" width="500" height="200"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="500" height="200"></p>
 
-![image](https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png){: .center}
-
-![image](https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png){: .center}
-
-![image](https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png){: .center}
 
 - 우리가 알고 있는 좌표인 World coordination, Image plane coordination, Camera coordination을 이용해 Rotation value 검출하는 원리를 이용
 
@@ -26,7 +24,8 @@
 
 - [github open api](https://github.com/qhan1028/Headpose-Detection) 이용해 Rotation value인 pitch-yaw-roll(Euler angles) 값 추출
 
-![image](https://user-images.githubusercontent.com/43233184/91655601-b9e20400-eaec-11ea-80ae-e31bef55f7ee.png){: .center}
+
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655601-b9e20400-eaec-11ea-80ae-e31bef55f7ee.png"></p>
 
 # Data EDA
 
@@ -54,10 +53,10 @@ memory usage: 1.0+ MB
 
 ### Number of data per Subjects
 
-![image](https://user-images.githubusercontent.com/43233184/91655608-bfd7e500-eaec-11ea-92c3-6cdb6859c550.png){: width="50%"}{: .center}
-### Number of data per label
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655608-bfd7e500-eaec-11ea-92c3-6cdb6859c550.png"></p>
 
-![image](https://user-images.githubusercontent.com/43233184/91655612-c23a3f00-eaec-11ea-9331-f461c35870ff.png){: .center}
+### Number of data per label
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655612-c23a3f00-eaec-11ea-9331-f461c35870ff.png"></p>
 
 - label 0(41.92%) : 온라인 수업 **화면이 아닌 곳을 응시**
 - label 1(58.08%) : 온라인 수업 **화면 응시**
@@ -65,16 +64,15 @@ memory usage: 1.0+ MB
 ### Correlation of Headpose
 
 #### Heatmap
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655614-c5352f80-eaec-11ea-94cb-2b4df370cb62.png"></p>
 
-![image](https://user-images.githubusercontent.com/43233184/91655614-c5352f80-eaec-11ea-94cb-2b4df370cb62.png){: .center}
-
-![image](https://user-images.githubusercontent.com/43233184/91655617-c7978980-eaec-11ea-8add-b4da5af999b3.png){: .center}
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655617-c7978980-eaec-11ea-8add-b4da5af999b3.png"></p>
 
 ### Distribution of Headpose
 
 #### violin plot
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.pn"></p>
 
-![image](https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.png){: .center}
 
 # Make metadata
 
