@@ -1,6 +1,4 @@
-# Web README
-
-# C'mon web system
+# C'mon Web System
 
 ## Web System Architecture
 
@@ -72,10 +70,10 @@ $ pip install tensorflow #for load model
 ## Main Features
 
 1. **webcam real-time streaming**
-2. model predict 결과를 바탕으로 ****real-time output image streaming**
+2. model predict 결과를 바탕으로 **real-time output image streaming**
     - 사용 기술:
         - threading
-3. 일정 시간 동안 수업 참여 비율이 낮을 때 학습자에게 ****real-time alarm** 보내기
+3. 일정 시간 동안 수업 참여 비율이 낮을 때 학습자에게 **real-time alarm** 보내기
     - 사용 기술:
         - socket
         - javascript SweetAlert
@@ -117,7 +115,6 @@ professor와 student가 한 번에 로그인될 수 없는 특징으로 인해 �
 4. 학습자가 교수자의 페이지에 접근할 수 없도록 더욱 체계적이고 안전한 웹페이지를 제공할 것입니다.
 
 ## References
-
-- [https://github.com/animesh-chouhan/flask-webcam](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/data)
 - [./data](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/data)
+- [https://github.com/animesh-chouhan/flask-webcam](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/data)
 - [https://ron.sh/creating-real-time-charts-with-flask/](https://ron.sh/creating-real-time-charts-with-flask/)
