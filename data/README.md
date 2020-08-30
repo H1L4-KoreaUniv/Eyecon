@@ -1,5 +1,3 @@
-# Data README
-
 # Data Features
 
 ### Face and Eye image
@@ -8,14 +6,14 @@
     - landmark 검출 시 pre-trained model([shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)) 사용
 2. Face는 (154, 154, 3) Eye는 (224, 224, 3)로 resize 후 jpg파일로 저장
 
-<img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png" width="700" height="200">
+<img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png" width="550px" height="120px">
 
 ### Headpose
 
 1. 원리
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png" width="500" height="200"></p>
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png" width="500" height="200"></p>
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="500" height="200"></p>
+<img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png" width="500" height="200">
+<img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png" width="500" height="200">
+<img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="500" height="200">
 
 
 - 우리가 알고 있는 좌표인 World coordination, Image plane coordination, Camera coordination을 이용해 Rotation value 검출하는 원리를 이용
