@@ -29,3 +29,14 @@
     - 모델을 위한 데이터 생성 및 전처리
 3. [model](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/model)
     - 학습자가 수업을 참여하는지 판단하기 위한 model 생성
+
+
+## Run
+
+```
+1. data directory에서 data에 대한 json 생성
+2. json을 이용해 model directory에서 model 생성
+3. 생성한 model을 이용해 web system 실행
+```
+
+위 과정을 모두 수행하시면 C'mon을 경험하실 수 있습니다!
