@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C'mon</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet">
+<style>
+    header.masthead {
+      padding-top: 2.5rem;
+      padding-bottom: 10rem;
+      text-align: center;
+      color: #fff;
+      background-image: url("/static/assets/img/header2-sg.png");
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center center;
+      background-size: cover;
+    }
+</style>
+</head>
+<body>
+{% include 'navbar.html' %}
+<header class="masthead"></header>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">실시간 전체 학생 수업 참여 평균 그래프</h4>
+
+                    <canvas id="canvas"></canvas>
+                        <br>
+                        <p class="card-text"  style="padding-left: 20px">
+                            전체 학생의 시간별 참여도의 평균값을 실시간으로 나타냅니다.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">실시간 학생별 누적 수업 참여도 그래프</h4>
+                    <canvas id="canvas2"></canvas>
+                        <br>
+                        <p class="card-text"  style="padding-left: 20px">
+                            학생별 누적 수업 참여도를 확인할 수 있습니다.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<script>
+    var students = {{ class_students|tojson }}
+    var bar_data = []
+    for (var i =0; i<students.length;i++){
+        bar_data[i]=0;
+    }
+    $(document).ready(function () {
+        const config = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Focus or not",
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [],
+                    fill: false,
+                    steppedline:true,
+                }],
+            },
+            options: {
+                steppedLine: 'before',
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 1,
+                            fontSize : 14,
+					    },
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '수업 참여도'
+                        }
+                    }]
+                }
+            }
+        };
+
+        const config_bar = {
+            type: 'bar',
+            data: {
+                labels: students,
+                datasets: [{
+                    label: "Focus accumulate rate",
+                    backgroundColor: 'rgb(75, 192, 192, 1)',
+                    borderColor: 'rgb(75, 192, 192, 1)',
+                    data: bar_data,
+                }],
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+
+                    }],
+                    yAxes: [{
+                        display: true,
+
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '누적 수업 참여 비율(%)'
+                        }
+                    }]
+                }
+            }
+        };
+        const context = document.getElementById('canvas').getContext('2d');
+        const context2 = document.getElementById('canvas2').getContext('2d');
+
+        const lineChart = new Chart(context, config);
+        const barChart = new Chart(context2, config_bar);
+
+        const source = new EventSource("/chart_data");
+
+        source.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+            if (config.data.labels.length === 25) {
+                config.data.labels.shift();
+                config.data.datasets[0].data.shift();
+            }
+            config.data.labels.push(data.time);
+            config.data.datasets[0].data.push(data.value);
+            for (var i =1; i<students.length;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 50)+50;
+            }
+            config_bar.data.datasets[0].data[0]=data.data_rate*100;
+            lineChart.update();
+            barChart.update();
+        }
+    });
+</script>
+<br>
+<br>
+<div class="container">
+<div class="row">
+    <div class="col text-center">
+<button type="button" onclick="location.href='/class_result'" class="btn btn-info btn-lg">Go to result</button>
+    </div>
+</div>
+
+</div>
+</body>
+{% include 'footer.html' %}
+</html>
