@@ -1,5 +1,5 @@
 # C'mon 
-### CNN based online class participation monitoring system
+### CNN based online class participation MONitoring system
 
 1. 프로젝트 개요: Convolutional Neural Network를 이용한 이미지 분석 기반의 **실시간 비대면 수업 학습자 모니터링 시스템**
 2. 프로젝트 기간: 2020.07.06 ~ 2020.08.31
