@@ -1,10 +1,18 @@
 # Model
 
-![image](https://user-images.githubusercontent.com/61040406/91663643-2aa51280-eb25-11ea-8a99-bb7c8df9c260.png)
+ 딥러닝에 사용한 알고리즘은 이미지 처리에 유용한 Convolutional Neural Network(CNN)입니다. 입력은 얼굴 이미지, 두 눈 이미지, headpose 벡터로 총 4개이며, 2개의 CNN을 사용하였고, 출력은 binary class입니다. 이미지는 26명의 영상에서 13,563장의 frame을 추출하여 총 40,689장입니다.
+ 
+ 
+## Image Transformation
+ 영상에서 1초 단위로 프레임을 추출하였기 때문에 연속된 이미지들은 유사한 경우가 있었습니다. 이미지의 분포를 넓게 하여 조금 더 일반화된 가중치를 학습시키고자 이미지에 아래와 같은 변형을 주었습니다.
+ 
+ ![image](https://user-images.githubusercontent.com/61040406/91671156-06662780-eb5f-11ea-9535-f7df072481b4.png)
+ 원본 이미지의 밝기, 대조, 색조, 채도를 무작위로 변경하고, 노이즈를 랜덤하게 줘서 가장 오른쪽 이미지와 같이 변형을 주어 데이터의 분포를 넓게 만들었습니다.
+ 
 
- 딥러닝에 사용한 알고리즘은 이미지 처리에 유용한 Convolutional Neural Network(CNN)입니다. 입력은 얼굴 이미지, 두 눈 이미지, headpose 벡터로 총 4개이며, 2개의 CNN을 사용하였고, 출력은 binary class입니다. 
+## Transfer Learning
 
- 모델 학습에는 Transfer learning을 적용하였습니다. Transfer learning은 이미 많은 데이터를 학습하여 일반화된 feature를 가지기 때문에, 학습할 데이터가 적을 때 유용하며 학습 시간을 줄이는 장점이 있습니다. Transfer learning에 고려된 모델은 아래 그림과 같습니다. 
+ 모델 학습에는 Transfer learning을 적용하였습니다. Transfer learning은 모델이 이미 많은 데이터를 학습하여 일반화된 feature를 가지기 때문에, 학습할 데이터가 적을 때 유용하며 학습 시간을 줄이는 장점이 있습니다. Transfer learning에 고려된 모델은 아래 그림과 같습니다. 
 
 ![image](https://user-images.githubusercontent.com/61040406/91663178-3d6a1800-eb22-11ea-93d6-9d1d2afd0ea5.png)
 
@@ -13,7 +21,10 @@
 - ResNet50은 이미지넷을 학습하였으며, 약 2500만 개의 가중치를 가집니다.
 - MobileNetV2는 이미지넷을 학습하였으며, 약 350만 개의 가중치를 가집니다.
 
- 
+
+## Model Structure
+
+ ![image](https://user-images.githubusercontent.com/61040406/91663643-2aa51280-eb25-11ea-8a99-bb7c8df9c260.png)
 
  우리가 개발한 모델을 살펴봅시다. 얼굴 이미지를 입력으로 받는 첫 번째 CNN에는 DeepFace가 사용되었습니다. 양쪽 눈은 두 번째 CNN에 따로 입력됩니다. 두 번째 CNN으로는 VGG16, ResNet50, MobileNetV2를 고려하였고, 최종 모델로 MobileNetV2를 사용하였습니다. 3차원 얼굴 각도는 모델 상단의 fully-connected layer에서 입력됩니다.
 
