@@ -8,13 +8,13 @@
     - landmark 검출 시 pre-trained model([shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)) 사용
 2. Face는 (154, 154, 3) Eye는 (224, 224, 3)로 resize 후 jpg파일로 저장
 
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png"){: width="300px"}{: .center" width="500" height="200"></p>
+<img src="https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png" width="700" height="200">
 
 ### Headpose
 
 1. 원리
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png"){: width="300px"}{: .center" width="500" height="200"></p>
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png"){: width="300px"}{: .center" width="500" height="200"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655590-aa62bb00-eaec-11ea-8a0e-faec947e75e6.png" width="500" height="200"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655593-afc00580-eaec-11ea-945d-54e9f4f5ff21.png" width="500" height="200"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655597-b2225f80-eaec-11ea-9732-5df31ee66176.png" width="500" height="200"></p>
 
 
@@ -71,7 +71,7 @@ memory usage: 1.0+ MB
 ### Distribution of Headpose
 
 #### violin plot
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.pn"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.png"></p>
 
 
 # Make metadata
