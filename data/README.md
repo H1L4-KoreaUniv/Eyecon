@@ -8,6 +8,7 @@
     - landmark 검출 시 pre-trained model([shape_predictor_68_face_landmarks.dat](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)) 사용
 2. Face는 (154, 154, 3) Eye는 (224, 224, 3)로 resize 후 jpg파일로 저장
 
+<center><img src="/https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png){: width="300px"}{: .center" width="300" height="300"></center>
 ![image](https://user-images.githubusercontent.com/43233184/91655583-9c149f00-eaec-11ea-9b8d-50f469c647b9.png){: width="300px"}{: .center}
 ### Headpose
 
