@@ -1,7 +1,11 @@
 #
-#   Timer
-#   Written by Qhan
+# Referenced Code : https://github.com/qhan1028/Headpose-Detection
 #
+# title           : timer.py
+# description     : Module for headpose.py 
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
 
 from __future__ import print_function
 import time
