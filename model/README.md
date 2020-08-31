@@ -99,6 +99,17 @@ $ pip install scikit-learn
 
     : 모델 구조 정의
 
+
+# Before run
+```
+# constants.py
+
+11    PATH_JSON = 'C:/Users/sodaus/Desktop/data_final/data_final.json'
+12    PATH_IMG = 'C:/Users/sodaus/Desktop/data_final/img/'
+13    PATH_WEIGHTS_DeepFace = 'C:/Users/sodaus/Desktop/1stmodel/VGGFace2_DeepFace_weights_val-0.9034.h5'
+```
+
+
 # References
 
 - [[Karen Simonyan 2014](https://papers.nips.cc/paper/5353-two-stream-convolutional-networks-for-action-recognition-in-videos)] Two-Stream Convolutional Networks for Action Recognition in Videos
