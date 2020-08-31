@@ -107,12 +107,16 @@ $ pip install scikit-learn
 
 # Before run
 [VGGFace2_DeepFace_weights_val-0.9034.h5](https://github.com/swghosh/DeepFace/releases/download/weights-vggface2-2d-aligned/VGGFace2_DeepFace_weights_val-0.9034.h5.zip)
-```
+```python
 # constants.py
 
 11    PATH_JSON = 'C:/Users/sodaus/Desktop/data_final/data_final.json'
 12    PATH_IMG = 'C:/Users/sodaus/Desktop/data_final/img/'
 13    PATH_WEIGHTS_DeepFace = 'C:/Users/sodaus/Desktop/1stmodel/VGGFace2_DeepFace_weights_val-0.9034.h5'
+
+# main.py - If you don't have GPU, type 'device:CPU:0' instead of 'device:GPU:0'.
+
+29    with tf.device('device:GPU:0'):
 ```
 
 # References
