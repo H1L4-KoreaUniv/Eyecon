@@ -71,6 +71,11 @@ memory usage: 1.0+ MB
 #### Boxplot
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696089-0e978480-ebaa-11ea-9d3d-23a77a59e572.png" width="90%"></p>
 
+화면을 보지않는 그룹(label0)과 화면을 보는 그룹(label1)간의 Headpose 차이 
+
+- 두 그룹 간에 pitch, yaw, roll 값이 차이가 있는지 살펴보기 위해 boxplot을 그림
+- pitch와 yaw는 두 그룹 사이에 차이가 있는 것으로 보임
+- roll은 두 그룹 사이에 차이가 없는 것으로 보임
 
 # Make metadata
 
