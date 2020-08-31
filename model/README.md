@@ -6,7 +6,7 @@
 ## Image Transformation
  영상에서 1초 단위로 프레임을 추출하였기 때문에 연속된 이미지들은 유사한 경우가 있었습니다. 이미지의 분포를 넓게 하여 조금 더 일반화된 가중치를 학습시키고자 이미지에 아래와 같은 변형을 주었습니다.
  
- ![image](https://user-images.githubusercontent.com/61040406/91685563-ac348900-eb95-11ea-8116-ecd49f828ea2.png)
+ ![image](https://user-images.githubusercontent.com/61040406/91685563-ac348900-eb95-11ea-8116-ecd49f828ea2.png width="60%")
 
  원본 이미지의 밝기, 대조, 색조, 채도를 무작위로 변경하고, 노이즈를 랜덤하게 줘서 가장 오른쪽 이미지와 같이 변형을 주어 데이터의 분포를 넓게 만들었습니다.
  
@@ -15,7 +15,7 @@
 
  모델 학습에는 Transfer learning을 적용하였습니다. Transfer learning은 모델이 이미 많은 데이터를 학습하여 일반화된 feature를 가지기 때문에, 학습할 데이터가 적을 때 유용하며 학습 시간을 줄이는 장점이 있습니다. Transfer learning에 고려된 모델은 아래 그림과 같습니다. 
 
- ![image](https://user-images.githubusercontent.com/61040406/91663178-3d6a1800-eb22-11ea-93d6-9d1d2afd0ea5.png)
+ ![image](https://user-images.githubusercontent.com/46590618/91721007-030c8380-ebd3-11ea-9391-f1baf4e5adfb.png)
 
 - DeepFace는 Facebook 사용자가 업로드한 400만 개의 얼굴 이미지를 학습하였으며, 약 1억 2천만 개의 가중치를 가집니다.
 - VGG16은 1400만 개의 이미지로 이루어진 이미지넷을 학습하였으며, 약 1억 4000만 개의 가중치를 가집니다.
