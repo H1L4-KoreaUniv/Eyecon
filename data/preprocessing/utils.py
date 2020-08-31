@@ -1,8 +1,12 @@
 #
-#   Headpose Detection Utils
-#   Written by Qhan
-#   Last Update: 2019.1.9
+# Referenced Code : https://github.com/qhan1028/Headpose-Detection
 #
+# title           : utils.py
+# description     : Module for headpose estimation. 
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
+
 
 import numpy as np
 import cv2
