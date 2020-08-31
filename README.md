@@ -18,7 +18,7 @@
 ## Repository
 
 ```
-└── Web
+└── eb
 └── data
 └── model
 ```
