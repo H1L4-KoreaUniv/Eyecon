@@ -25,7 +25,7 @@
 
 <img src="https://user-images.githubusercontent.com/43233184/91655601-b9e20400-eaec-11ea-80ae-e31bef55f7ee.png" width="300">
 
-# Data EDA
+# Exploratory Data Analysis
 
 ### Dataframe Structure
 
@@ -49,11 +49,11 @@ dtypes: float64(3), object(7)
 memory usage: 1.0+ MB
 ```
 
-### Number of data per Subjects
+### Number of data per Subject
 
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696345-659d5980-ebaa-11ea-9571-a0e8becf32ad.png"></p>
 
-### Number of data per label
+### Number of data per Label
 <p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655612-c23a3f00-eaec-11ea-9331-f461c35870ff.png"></p>
 
 - label 0(41.92%) : 온라인 수업 **화면이 아닌 곳을 응시**
@@ -68,7 +68,7 @@ memory usage: 1.0+ MB
 
 ### Distribution of Headpose
 
-#### boxplot
+#### Boxplot
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696089-0e978480-ebaa-11ea-9d3d-23a77a59e572.png" width="90%"></p>
 
 
