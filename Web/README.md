@@ -1,5 +1,12 @@
 # C'mon Web System
 
+![image](https://user-images.githubusercontent.com/43233184/91686002-0c77fa80-eb97-11ea-938e-dd2eca56c908.png)
+교사의 가르침과 학생의 배움이 하나가 될 때 비로소 올바른 교육의 실천이라고 말할 수 있습니다.
+가르침과 배움의 간극이 넓어지는 온라인 교육환경에서
+C'mon은 수업의 본질에 집중해 그 간극을 좁히는 온라인 수업 서비스입니다.
+
+
+
 ## Web System Architecture
 
 ![image](https://user-images.githubusercontent.com/43233184/91658530-d9d0f200-eb03-11ea-90bc-326f41c8dd5f.png)
@@ -86,14 +93,30 @@ $ pip install tensorflow #for load model
         - 학습자를 위한 수업 종류 후 나의 수업 참여도 정보
 
 ## Demo
+### Before run
+1. Add your model from live_test/model directory
 
-Add your model from live_test/model directory
+```python
+# live_process.py
+59   facelm_img = (facelm_img / 255.0).reshape(1, 152,152, 3)
+60   lefteyelm_img = (lefteyelm_img / 255.0).reshape(1, 224,224, 3)
+61   righteyelm_img = (righteyelm_img / 255.0).reshape(1, 224, 224, 3)
+
+# cut_facelm.py
+10  facelm_img = cv2.resize(original[y1:y2, x1:x1 + y2 - y1], dsize=(152, 152), interpolation=cv2.INTER_AREA)
+
+# cut_eyelm.py
+23   lefteye_img = cv2.resize(image[eye0y1:eye0y2, eye0x1:eye0x2], dsize=(224, 224), interpolation=cv2.INTER_AREA)
+24   righteye_img = cv2.resize(image[eye1y1:eye1y2, eye1x1:eye1x2], dsize=(224, 224), interpolation=cv2.INTER_AREA)
+```
+
+2. model input에 맞게 size를 수정하세요.
 
 ```python
 $ python app.py
 ```
 
-🎥 [**Demo_video**](youtube)
+🎥 [**Demo_video**](https://drive.google.com/file/d/1URumJlHoDgkaJyyPHYp6kwAjmstywiL6/view)
 
 ## Notes
 
