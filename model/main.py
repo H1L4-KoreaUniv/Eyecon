@@ -29,7 +29,7 @@ def main():
     with tf.device('/device:GPU:0'):
         fit_history = model.fit(
             train_ds,
-            epochs=10,
+            epochs=100,
             validation_data=valid_ds,
             callbacks=[cb_earlystopper]
         )
