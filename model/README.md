@@ -113,6 +113,7 @@ $ pip install scikit-learn
 11    PATH_JSON = 'C:/Users/sodaus/Desktop/data_final/data_final.json'
 12    PATH_IMG = 'C:/Users/sodaus/Desktop/data_final/img/'
 13    PATH_WEIGHTS_DeepFace = 'C:/Users/sodaus/Desktop/1stmodel/VGGFace2_DeepFace_weights_val-0.9034.h5'
+14    PATH_MODEL_SAVE = 'C:/Users/sodaus/Desktop/model_final/Deep_Mobile'
 
 # main.py - If you don't have GPU, type 'device:CPU:0' instead of 'device:GPU:0'.
 
