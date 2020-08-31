@@ -24,6 +24,12 @@ def main():
                   metrics=['accuracy'])
     model.summary()
 
+    checkpoint_path = constants.PATH_MODEL_SAVE
+    cb_checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                       monitor='val_loss',
+                                                       save_weights_only=False,
+                                                       save_best_only=True,
+                                                       verbose=2)
     cb_earlystopper = tf.keras.callbacks.EarlyStopping(monitor='val_loss',
                                                        patience=10)
     with tf.device('/device:GPU:0'):
@@ -31,12 +37,12 @@ def main():
             train_ds,
             epochs=100,
             validation_data=valid_ds,
-            callbacks=[cb_earlystopper]
+            callbacks=[cb_earlystopper, cb_checkpoint]
         )
         
     plot_model(fit_history)
     
-    model.save(constants.PATH_MODEL_SAVE)
+    # model.save(constants.PATH_MODEL_SAVE)
 
 if __name__ == '__main__':
    main()
