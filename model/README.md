@@ -106,6 +106,7 @@ $ pip install scikit-learn
 
 
 # Before run
+[VGGFace2_DeepFace_weights_val-0.9034.h5](https://github.com/swghosh/DeepFace/releases/download/weights-vggface2-2d-aligned/VGGFace2_DeepFace_weights_val-0.9034.h5.zip)
 ```
 # constants.py
 
