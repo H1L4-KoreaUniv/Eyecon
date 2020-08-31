@@ -104,7 +104,7 @@ $ pip install dlib
     - 데이터 전처리 및 데이터 저장을 위한 json 파일 생성 폴더
 2. EDA.ipynb
     - EDA 및 유의성 검정
-
+         
 ## Run
 
 ### before run
