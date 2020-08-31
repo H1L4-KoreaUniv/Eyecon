@@ -1,3 +1,9 @@
+# title           : cut_eyelm.py
+# description     : Extract eye image from your webcam image.
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
+
 import dlib
 import cv2
 
