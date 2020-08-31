@@ -35,6 +35,8 @@ def main():
         )
         
     plot_model(fit_history)
+    
+    model.save(constants.PATH_MODEL_SAVE)
 
 if __name__ == '__main__':
    main()
