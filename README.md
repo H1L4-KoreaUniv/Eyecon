@@ -18,12 +18,12 @@
 ## Repository
 
 ```
-└── eb
+└── web
 └── data
 └── model
 ```
 
-1. [Web](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/Web)
+1. [web](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/Web)
     - C'mon Web system
 2. [data](https://github.com/H1L4-KoreaUniv/Eyecon/tree/master/data)
     - 모델을 위한 데이터 생성 및 전처리
