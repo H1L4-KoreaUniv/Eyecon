@@ -2,7 +2,7 @@
 # Referenced Code : https://github.com/qhan1028/Headpose-Detection
 #
 # title           : timer.py
-# description     : Module for headpose.py 
+# description     : Module for headpose estimation. 
 # date            : 20200818
 # python_version  : 3.8.3
 # ==============================================================================
