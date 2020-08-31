@@ -18,9 +18,9 @@ Install and update using pip:
 
 ```python
 $ pip install flask
-$ pip install flask_socketio
-$ pip install flask_sqlalchemy
-$ pip install flask_login
+$ pip install flask-socketio
+$ pip install flask-sqlalchemy
+$ pip install flask-login
 $ pip install tensorflow #for load model
 
 ```
