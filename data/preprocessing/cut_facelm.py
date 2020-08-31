@@ -1,3 +1,9 @@
+# title           : cut_facelm.py
+# description     : Extract face image from your webcam image.
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
+
 import cv2
 
 # face boundarybox 좌표값과 이미지를 인자로 받아 얼굴 부분만 자른 이미지를 리턴하는 함수
