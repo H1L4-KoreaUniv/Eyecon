@@ -26,7 +26,7 @@ $ pip install flask-login
 ## Repository
 
 ```
-└── Web
+└── web
         ├── chart_data
         ├── generate_data
         ├── live_test
@@ -56,7 +56,7 @@ $ pip install flask-login
     : professor page.html, class_result.html, my_result.html에 필요한 차트에 대한 데이터 생성
 
     - meta_process.py
-    - metadata
+    - metadata.py
 3. live_test
 
     : 학생들의 수업 참여도를 판단하기 위한 webcam live streaming
