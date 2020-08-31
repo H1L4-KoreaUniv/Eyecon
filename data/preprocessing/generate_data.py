@@ -1,7 +1,9 @@
-"""
-Created on Tue Aug 18 22:28:19 2020
-@author: 이다혜
-"""
+# title           : generate_data.py
+# description     : Generate face image, left eye image, right eye image and headpose values for input of model.  
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
+
 import cv2
 import numpy as np
 import os
