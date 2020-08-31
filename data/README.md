@@ -51,7 +51,7 @@ memory usage: 1.0+ MB
 
 ### Number of data per Subjects
 
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655608-bfd7e500-eaec-11ea-92c3-6cdb6859c550.png"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696345-659d5980-ebaa-11ea-9571-a0e8becf32ad.png"></p>
 
 ### Number of data per label
 <p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655612-c23a3f00-eaec-11ea-9331-f461c35870ff.png"></p>
@@ -68,8 +68,8 @@ memory usage: 1.0+ MB
 
 ### Distribution of Headpose
 
-#### violin plot
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655618-cb2b1080-eaec-11ea-9b51-c1130febaa4b.png" width="90%"></p>
+#### boxplot
+<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696089-0e978480-ebaa-11ea-9d3d-23a77a59e572.png" width="90%"></p>
 
 
 # Make metadata
