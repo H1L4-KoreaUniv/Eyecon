@@ -11,6 +11,7 @@ import tensorflow as tf
 PATH_JSON = 'C:/Users/sodaus/Desktop/data_final/data_final.json'
 PATH_IMG = 'C:/Users/sodaus/Desktop/data_final/img/'
 PATH_WEIGHTS_DeepFace = 'C:/Users/sodaus/Desktop/1stmodel/VGGFace2_DeepFace_weights_val-0.9034.h5'
+PATH_MODEL_SAVE = 'C:/Users/sodaus/Descktop/model_final/Deep_Mobile'
 # ==============================================================================
 VALID_PROP = 0.3
 # ==============================================================================
