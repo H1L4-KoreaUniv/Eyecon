@@ -60,6 +60,10 @@
 # Installing
 
 ```python
+
+# for json_to_df.py
+$ pip install pandas
+
 $ pip install tensorflow
 $ pip install scikit-learn
 ```
@@ -109,7 +113,6 @@ $ pip install scikit-learn
 12    PATH_IMG = 'C:/Users/sodaus/Desktop/data_final/img/'
 13    PATH_WEIGHTS_DeepFace = 'C:/Users/sodaus/Desktop/1stmodel/VGGFace2_DeepFace_weights_val-0.9034.h5'
 ```
-
 
 # References
 
