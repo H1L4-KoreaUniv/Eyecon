@@ -21,8 +21,6 @@ $ pip install flask
 $ pip install flask-socketio
 $ pip install flask-sqlalchemy
 $ pip install flask-login
-$ pip install tensorflow #for load model
-
 ```
 
 ## Repository
