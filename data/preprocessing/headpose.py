@@ -1,7 +1,11 @@
 #
-#   Referenced Code: https://github.com/qhan1028/Headpose-Detection
+# Referenced Code : https://github.com/qhan1028/Headpose-Detection
 #
-
+# title           : headpose.py
+# description     : Calculate the headpose value from the webcam image. 
+# date            : 20200818
+# python_version  : 3.8.3
+# ==============================================================================
 import argparse
 import cv2
 import dlib
