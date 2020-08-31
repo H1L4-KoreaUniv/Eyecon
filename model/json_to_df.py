@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # title           : json_to_df.py
-# description     : Make datarame from json file in order to use along whole analysis.
+# description     : Make dataframe from json file in order to use along whole analysis.
 # date            : 20200830
 # python_version  : 3.8.3
 # ==============================================================================
