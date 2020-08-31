@@ -4,23 +4,86 @@
 # date            : 20200830
 # python_version  : 3.8.3
 # ==============================================================================
-
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Conv2D, LocallyConnected2D, MaxPooling2D, Flatten, Dense, Dropout
-import matplotlib.pyplot as plt
+from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, Dropout, Flatten, LocallyConnected2D
 import constants
+import matplotlib.pyplot as plt
 
+class ControlModel:
+    def layer_concat(self, inputs, name):
+        output = tf.keras.layers.concatenate(inputs, name=name)            
+        return output
+
+class ImageNetModel:
+    def __init__(self):
+        pass
+    
+    def use_VGG16(self):
+        """
+        Define VGG16 model. Load and freeze pre-trained weights.
+        Change model's name and layers' name.
+        ----------
+        - Returns
+        
+        x: Functional
+            VGG16 model.
+        """
+        from tensorflow.keras.applications import VGG16
+        base_model = VGG16(input_shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
+                           include_top=False,
+                           weights='imagenet',
+                           pooling='avg')
+        for layer in base_model.layers:
+            layer.trainable = False
+        return base_model
+    
+    def use_ResNet50(self):
+        """
+        Define ResNet50 model. Load and freeze pre-trained weights.
+        Change model's name and layers' name.
+        ----------
+        - Returns
+        
+        x: Functional
+            ResNet50 model.
+        """
+        from tensorflow.keras.applications import ResNet50
+        base_model = ResNet50(input_shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
+                              include_top=False,
+                              weights='imagenet',
+                              pooling='avg')
+        for layer in base_model.layers:
+            layer.trainable = False
+        return base_model
+
+    def use_MobileNetV2(self):
+        """
+        Define MobileNetV2 model. Load and freeze pre-trained weights.
+        Change model's name and layers' name.
+        ----------
+        - Returns
+        
+        base_model: Functional
+            MobileNetV2 model.
+        """
+        from tensorflow.keras.applications import MobileNetV2
+        base_model = MobileNetV2(input_shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
+                                 include_top=False,
+                                 weights='imagenet',
+                                 pooling='avg')
+        for layer in base_model.layers:
+            layer.trainable = False
+        return base_model
 
 class FaceModel:
     """
     Define and get face model.
     """
     def __init__(self):
-        self.input_face = Input(shape=(constants.IMAGE_SIZE_FACE, constants.IMAGE_SIZE_FACE, 3),
-                                name='face_Input')
+        self.input_face = Input(shape=(constants.IMAGE_SIZE_FACE, constants.IMAGE_SIZE_FACE, 3))
 
-    def use_DeepFace(self):
+    def use_deepface(self):
         """
         Define DeepFace model.
         ----------
@@ -59,7 +122,6 @@ class FaceModel:
         """
         face = Dense(128, activation='relu', name='face_fc_1')(layer)
         face = Dense(64, activation='relu', name='face_fc_2')(face)
-        
         return face
 
     def get_model(self):
@@ -71,113 +133,22 @@ class FaceModel:
         output: Tenseor
             Dense layer's output
         """
-        layer_ = self.use_DeepFace()
+        layer_ = self.use_deepface()
         layer_.load_weights(constants.PATH_WEIGHTS_DeepFace)
         for layer in layer_.layers:
             layer.trainable = False
         self.input_face = layer_.input
-        output = self.get_fc_layer(layer_.layers[-4].output)
         
+        output = self.get_fc_layer(layer_.layers[-4].output)
+
         return output
 
 class EyeModel:
     def __init__(self):
-        self.input_eyeleft = Input(shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
-                                   name='eyeleft_Input')
-        self.input_eyeright = Input(shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
-                                    name='eyeright_Input')
-    
-    def use_VGG16(self, name):
-        """
-        Define VGG16 model. Load and freeze pre-trained weights.
-        Change model's name and layers' name.
-        ----------
-        - Parameters
-        name: str
-            'left' or 'right'
-        ----------
-        - Returns
-        
-        x: Functional
-            VGG16 model.
-        """
-        from tensorflow.keras.applications import VGG16
-        x = VGG16(include_top=False,
-                  weights='imagenet',
-                  pooling='avg')
-        
-        for layer in x.layers:
-            layer.trainable = False
-            
-        x._name = x._name + '_' + name
-        for layer in x.layers:
-            layer._name = layer._name + '_' + name
-            
-        return x
-    
-    def use_ResNet50(self, name):
-        """
-        Define ResNet50 model. Load and freeze pre-trained weights.
-        Change model's name and layers' name.
-        ----------
-        - Parameters
-        name: str
-            'left' or 'right'
-        ----------
-        - Returns
-        
-        x: Functional
-            ResNet50 model.
-        """
-        from tensorflow.keras.applications import ResNet50
-        x = ResNet50(input_shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
-                     include_top=False,
-                     weights='imagenet',
-                     pooling='avg')
-        
-        # freeze all layers of base_model
-        for layer in x.layers:
-            layer.trainable = False
-        
-        # change model's name and layers' name
-        x._name = x._name + '_' + name
-        for layer in x.layers:
-            layer._name = layer._name + '_' + name
-            
-        return x
-    
-    def use_MobileNetV2(self, name):
-        """
-        Define MobileNetV2 model. Load and freeze pre-trained weights.
-        Change model's name and layers' name.
-        ----------
-        - Parameters
-        name: str
-            'left' or 'right'
-        ----------
-        - Returns
-        
-        x: Functional
-            MobileNetV2 model.
-        """
-        from tensorflow.keras.applications import MobileNetV2
-        x = MobileNetV2(input_shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3),
-                        include_top=False,
-                        weights='imagenet',
-                        pooling='avg')
-        
-        # freeze all layers of base_model
-        for layer in x.layers:
-            layer.trainable = False
-            
-        # change model's name and layers' name
-        x._name = x._name + '_' + name
-        for layer in x.layers:
-            layer._name = layer._name + '_' + name
-            
-        return x
+        self.input_eyeleft = Input(shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3))
+        self.input_eyeright = Input(shape=(constants.IMAGE_SIZE_EYES, constants.IMAGE_SIZE_EYES, 3))
 
-    def get_fc_layer(self, x):
+    def get_fc_layer(self, layer):
         """
         Add fully-connected layers.
         ----------
@@ -191,8 +162,7 @@ class EyeModel:
         eyes: Tensor
             Dense layer's output
         """
-        eyes = Dense(64, activation='relu', name='eyes_fc_1')(x)
-        
+        eyes = Dense(64, activation='relu', name='eyes_fc_1')(layer)
         return eyes
 
     def get_model(self, model_name):
@@ -210,21 +180,23 @@ class EyeModel:
             Dense layer's output
         """
         if model_name == 'VGG16':
-            share_use_VGG16 = self.use_VGG16(name='eyes')
-            eyeleft = share_use_VGG16(self.input_eyeleft)
-            eyeright = share_use_VGG16(self.input_eyeright)
-            eyes = tf.keras.layers.concatenate([eyeleft, eyeright], name='eyes_Concat')
+            layer = ImageNetModel().use_ResNet50()
+            eyeleft = layer(self.input_eyeleft)
+            eyeright = layer(self.input_eyeright)
+            eyes = ControlModel().layer_concat([eyeleft, eyeright], name='eyes_Concat')
+            
         elif model_name == 'ResNet50':
-            share_use_ResNet50 = self.use_ResNet50(name='eyes')
-            eyeleft = share_use_ResNet50(self.input_eyeleft)
-            eyeright = share_use_ResNet50(self.input_eyeright)
-            eyes = tf.keras.layers.concatenate([eyeleft, eyeright], name='eyes_Concat')
-        elif model_name == 'MobileNetV2':
-            share_use_MobileNetV2 = self.use_MobileNetV2(name='eyes')
-            eyeleft = share_use_MobileNetV2(self.input_eyeleft)
-            eyeright = share_use_MobileNetV2(self.input_eyeright)
-            eyes = tf.keras.layers.concatenate([eyeleft, eyeright], name='eyes_Concat')
-                
+            layer = ImageNetModel().use_ResNet50()
+            eyeleft = layer(self.input_eyeleft)
+            eyeright = layer(self.input_eyeright)
+            eyes = ControlModel().layer_concat([eyeleft, eyeright], name='eyes_Concat')
+        
+        elif model_name =='MobileNetV2':
+            layer = ImageNetModel().use_MobileNetV2()
+            eyeleft = layer(self.input_eyeleft)
+            eyeright = layer(self.input_eyeright)
+            eyes = ControlModel().layer_concat([eyeleft, eyeright], name='eyes_Concat')
+        
         output = self.get_fc_layer(eyes)
 
         return output
@@ -243,11 +215,10 @@ class MainFCLayer:
     x: Tensor
         Dense layer's output
     """
-    def get_fc_layer(self, x):
-        x = Dense(128, activation='relu', name='main_Fc_1')(x)  # same with [Krafka]
-        x = Dense(1, activation='sigmoid', name='main_Fc_2')(x)  # same with [Krafka]
-        
-        return x
+    def get_fc_layer(self, layer):
+        main = Dense(128, activation='relu', name='main_Fc_1')(layer)
+        output_main = Dense(1, activation='sigmoid', name='main_Fc_2')(main)
+        return output_main
 
 def multimodal_multistream_model():
     """
@@ -262,22 +233,19 @@ def multimodal_multistream_model():
     """
     fm = FaceModel()
     em = EyeModel()
+    cm = ControlModel()
     mf = MainFCLayer()
-    
-    output_face = fm.get_model()
-    output_eyes = em.get_model(model_name=constants.MODEL_EYES)
-    input_headpose = Input(shape=(3), name='headpose_Input')
-    input_main = [fm.input_face, em.input_eyeleft, em.input_eyeright, input_headpose]
-    
-    x = tf.keras.layers.concatenate([output_face, output_eyes, input_headpose], name='main_Concat')
-    output_main = mf.get_fc_layer(x)
-    
+    face_output = fm.get_model()
+    eye_output = em.get_model(model_name=constants.MODEL_EYES)
+    headpose_input = Input(shape=(3), name='headpose_Input')
+    input_main = [fm.input_face, em.input_eyeleft, em.input_eyeright, headpose_input]
+    output = cm.layer_concat([face_output, eye_output, headpose_input], name='main_Concat')
+    output_main = mf.get_fc_layer(output)
     return input_main, output_main
 
 def plot_model(fit_history):
     """
     Plot learning curve.
-    
     """
     plt.subplot(2, 1, 1)
     plt.plot(fit_history.history["accuracy"])
