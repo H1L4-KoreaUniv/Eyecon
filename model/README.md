@@ -6,7 +6,7 @@
 ## Image Transformation
  영상에서 1초 단위로 프레임을 추출하였기 때문에 연속된 이미지들은 유사한 경우가 있었습니다. 이미지의 분포를 넓게 하여 조금 더 일반화된 가중치를 학습시키고자 이미지에 아래와 같은 변형을 주었습니다.
  
- <img src="https://user-images.githubusercontent.com/61040406/91685563-ac348900-eb95-11ea-8116-ecd49f828ea2.png" width="60%">
+ <img src="https://user-images.githubusercontent.com/61040406/91685563-ac348900-eb95-11ea-8116-ecd49f828ea2.png" width="80%">
 
  원본 이미지의 밝기, 대조, 색조, 채도를 무작위로 변경하고, 노이즈를 랜덤하게 줘서 가장 오른쪽 이미지와 같이 변형을 주어 데이터의 분포를 넓게 만들었습니다.
  
