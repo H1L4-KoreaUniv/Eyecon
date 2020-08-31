@@ -82,7 +82,7 @@ Install and update using pip:
 # opencv
 $ pip install opencv-python
 
-# dlib
+# dlib - Before you install dlib, you should install visual studio for c++.
 $ pip install cmake
 $ pip install dlib 
 ```
