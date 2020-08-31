@@ -95,7 +95,6 @@ $ pip install dlib
         ├── cut_facelm.py
         ├── generate_data.py
         ├── headpose.py
-        ├── json_to_df.py
         ├── timer.py
         ├── utils.py
 └── EDA.ipynb
@@ -135,13 +134,8 @@ $ pip install dlib
 ### to make json file
 
 ```python
-$ python preprocessing/generate_data.py
-```
-
-### to make json file to pandas dataframe
-
-```python
-$ python preprocessing/json_to_df.py
+$ cd preprocessing 
+$ python generate_data.py
 ```
 
 ## References
