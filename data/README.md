@@ -65,7 +65,7 @@ memory usage: 1.0+ MB
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91936097-2433b800-ed2a-11ea-9c12-ffef736e5dc1.png" width="90%"></p>
 
 #### Heatmap (correlation)
-<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91936544-0581f100-ed2b-11ea-8093-bae09ef771b7.png", width="90%"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91936544-0581f100-ed2b-11ea-8093-bae09ef771b7.png", width="50%"></p>
 
 #### Boxplot
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696089-0e978480-ebaa-11ea-9d3d-23a77a59e572.png" width="90%"></p>
