@@ -59,14 +59,13 @@ memory usage: 1.0+ MB
 - label 0(41.92%) : 온라인 수업 **화면이 아닌 곳을 응시**
 - label 1(58.08%) : 온라인 수업 **화면 응시**
 
-### Correlation of Headpose
+### Headpose Distribution
 
-#### Heatmap
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655614-c5352f80-eaec-11ea-94cb-2b4df370cb62.png" width="90%"></p>
+#### 2D Density
+<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91936097-2433b800-ed2a-11ea-9c12-ffef736e5dc1.png" width="90%"></p>
 
-<p align="center"><img src="https://user-images.githubusercontent.com/43233184/91655617-c7978980-eaec-11ea-8add-b4da5af999b3.png"></p>
-
-### Distribution of Headpose
+#### Heatmap (correlation)
+<p align="center"><img src="https://user-images.githubusercontent.com/61040406/91936544-0581f100-ed2b-11ea-8093-bae09ef771b7.png", width="90%"></p>
 
 #### Boxplot
 <p align="center"><img src="https://user-images.githubusercontent.com/61040406/91696089-0e978480-ebaa-11ea-9d3d-23a77a59e572.png" width="90%"></p>
