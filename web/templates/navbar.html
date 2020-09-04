@@ -91,7 +91,7 @@
                             <a class="nav-link" href="/class">Class</a></li>
                         {% if current_user.is_authenticated %}
                             {% if current_user.who =='teacher' %}
-                                <li class="nav-item "><a class="nav-link" href="/professor_page">Chart</a></li>
+                                <li class="nav-item "><a class="nav-link" href="/live_chart">Chart</a></li>
                                 <li class="nav-item "><a class="nav-link" href="/add_class">Create Class</a></li>
                                 </ul>
                                 {% elif current_user.who=='student' %}

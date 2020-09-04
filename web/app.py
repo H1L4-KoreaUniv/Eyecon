@@ -191,8 +191,8 @@ def get_students_list():
 
 
 # for live_test chart about student
-@app.route('/professor_page')
-def professor_page():
+@app.route('/live_chart')
+def live_chart():
     students_list = get_students_list()
     return render_template('teacher/live_chart.html', class_students=students_list)
 
@@ -204,7 +204,6 @@ def chart_data():
             json_data = json.dumps(metadata.pop())
             yield f"data:{json_data}\n\n"
             time.sleep(1)
-
     return Response(generate_random_data(), mimetype='text/event-stream')
 
 
@@ -258,5 +257,4 @@ def live_process():
 
 
 if __name__ == '__main__':
-    # app.run()
     socketio.run(app)

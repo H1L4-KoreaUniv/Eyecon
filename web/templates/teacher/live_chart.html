@@ -29,6 +29,22 @@
         <div class="col-12">
             <div class="card">
                     <div class="card-body">
+                        <h4 class="card-title" style="text-align: center;">실시간 전체 학생 수업 참여 그래프</h4>
+                    <canvas id="canvas3"></canvas>
+                        <br>
+                        <p class="card-text"  style="padding-left: 20px">
+                            전체 학생의 시간별 참여도를 실시간으로 나타냅니다.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                    <div class="card-body">
                         <h4 class="card-title" style="text-align: center;">실시간 전체 학생 수업 참여 평균 그래프</h4>
 
                     <canvas id="canvas"></canvas>
@@ -161,28 +177,265 @@
                 }
             }
         };
+
+
+        const config_bubble = {
+            type: 'bubble',
+                data: {
+                  datasets: [
+                    {
+                      label: students[0],
+                      backgroundColor: "rgb(255,51,102,1)",
+                      borderColor: "rgb(255,51,102, 1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:40,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[1],
+                      backgroundColor: "rgba(255,102,153,0.1)",
+                      borderColor: "rgba(255,102,153,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:20,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[2],
+                      backgroundColor: "rgba(252,102,0,0.1)",
+                      borderColor: "rgba(252,102,0,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:15,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[3],
+                      backgroundColor: "rgba(255,153,153,0.1)",
+                      borderColor: "rgba(255,153,153,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:30,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[4],
+                      backgroundColor: "rgba(255, 204, 0,0.1)",
+                      borderColor: "rgba(255, 204, 0,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:22,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[5],
+                      backgroundColor: "rgba(255, 231, 0,0.1)",
+                      borderColor: "rgba(255, 231, 0,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:23,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[6],
+                      backgroundColor: "rgba(153,51,0,0.1)",
+                      borderColor: "rgba(153,51,0,0.1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:15,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[7],
+                      backgroundColor: "rgba(0, 153, 0,0.1)",
+                      borderColor: "rgba(0, 153, 0,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:10,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[8],
+                      backgroundColor: "rgba(255, 0, 114,0.1)",
+                      borderColor: "rgba(255, 0, 114,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:28,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[9],
+                      backgroundColor: "rgba(153,102,255,0.1)",
+                      borderColor: "rgba(153,102,255,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:25,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[10],
+                      backgroundColor: "rgba(0,153,51,0.1)",
+                      borderColor: "rgba(0,153,51,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:24,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[11],
+                      backgroundColor: "rgba(0,153,253,0.1)",
+                      borderColor: "rgba(0,153,253,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:15,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[12],
+                      backgroundColor: "rgba(153,204,0,0.1)",
+                      borderColor: "rgba(153,204,0,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:19,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[13],
+                      backgroundColor: "rgba(100,15,255,0.1)",
+                      borderColor: "rgba(100,15,255,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:27,
+                          {#r:5,#}
+                      }]
+                    },{
+                      label: students[14],
+                      backgroundColor: "rgba(102,255,153,0.1)",
+                      borderColor: "rgba(102,255,153,1)",
+                      data: [{
+                          x:0,
+                          y:0,
+                          r:21,
+                          {#r:5,#}
+                      }]
+                    }
+                  ]
+                },
+                options: {
+                  title: {
+                    display: false,
+                    text: 'focus rate'
+                  }, scales: {
+                    yAxes: [{
+                          ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                        },
+                      scaleLabel: {
+                        display: true,
+                        labelString: '누적 수업 참여 비율(%)'
+                      }
+                    }],
+                    xAxes: [{
+                          ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                        },
+                      scaleLabel: {
+                        display: true,
+                        labelString: '1분당 누적 수업 참여 비율(%)'
+                      }
+                    }]
+                  }
+                }
+        };
+
         const context = document.getElementById('canvas').getContext('2d');
         const context2 = document.getElementById('canvas2').getContext('2d');
+        const context3 = document.getElementById('canvas3').getContext('2d');
 
         const lineChart = new Chart(context, config);
         const barChart = new Chart(context2, config_bar);
+        const bubbleChart = new Chart(context3,config_bubble);
 
         const source = new EventSource("/chart_data");
 
         source.onmessage = function (event) {
             const data = JSON.parse(event.data);
+
+            {#config line#}
             if (config.data.labels.length === 25) {
                 config.data.labels.shift();
                 config.data.datasets[0].data.shift();
             }
             config.data.labels.push(data.time);
             config.data.datasets[0].data.push(data.value);
-            for (var i =1; i<students.length;i++){
-                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 50)+50;
+
+            {#config_bar#}
+            for (var i =1; i<3;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 10)+70;
+            }
+            for (var i =3; i<6;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 10)+60;
+            }
+            for (var i =6; i<9;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 10)+40;
+            }
+            for (var i =9; i<13;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 10)+80;
+            }
+            for (var i =13; i<15;i++){
+                config_bar.data.datasets[0].data[i]=Math.floor(Math.random() * 10)+20;
             }
             config_bar.data.datasets[0].data[0]=data.data_rate*100;
+
+            config_bubble
+            config_bubble.data.datasets[0].data[0].x=data.minute_rate*100;
+            config_bubble.data.datasets[0].data[0].y=data.data_rate * 100;
+            for (var i =1; i<3;i++){
+                config_bubble.data.datasets[i].data[0].x = Math.floor(Math.random() * 10)+70;
+                config_bubble.data.datasets[i].data[0].y= config_bar.data.datasets[0].data[i];
+            }
+            config_bubble.data.datasets[2].data[0].x= 13;
+            for (var i =3; i<6;i++){
+                config_bubble.data.datasets[i].data[0].x = Math.floor(Math.random() * 10)+60;
+                config_bubble.data.datasets[i].data[0].y= config_bar.data.datasets[0].data[i];
+            }
+            for (var i =6; i<9;i++){
+                config_bubble.data.datasets[i].data[0].x = Math.floor(Math.random() * 10)+40;
+                config_bubble.data.datasets[i].data[0].y= config_bar.data.datasets[0].data[i];
+            }
+            config_bubble.data.datasets[7].data[0].x= 90;
+            config_bubble.data.datasets[8].data[0].x= 86;
+            for (var i =9; i<13;i++){
+                config_bubble.data.datasets[i].data[0].x = Math.floor(Math.random() * 10)+80;
+                config_bubble.data.datasets[i].data[0].y= config_bar.data.datasets[0].data[i];
+            }
+                config_bubble.data.datasets[11].data[0].x =30;
+            for (var i =13; i<15;i++){
+                config_bubble.data.datasets[i].data[0].x = Math.floor(Math.random() * 10)+20;
+                config_bubble.data.datasets[i].data[0].y= config_bar.data.datasets[0].data[i];
+            }
             lineChart.update();
             barChart.update();
+            bubbleChart.update();
         }
     });
 </script>

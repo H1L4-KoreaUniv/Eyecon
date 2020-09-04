@@ -7,8 +7,6 @@
         <meta name="author" content="" />
         <title>C'mon</title>
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/favicon.ico') }}"/>
-{#        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />#}
-        <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -41,19 +39,22 @@
     <body id="page-top">
         {% include 'navbar.html' %}
         <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To C'mon World!</div>
-                <div class="masthead-heading text-uppercase" >C'mon은 교육의 지향</div>
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="https://github.com/H1L4-KoreaUniv/Eyecon">Learn More</a>
-            </div>
-        </header>
+                <img src="{{ url_for("static",filename="assets/img/home/letter.png") }}" alt="" style="width: 1000px"/>
 
-        <!-- Services-->
-        <section class="page-section" id="services">
+{#                <div class="masthead-heading text-uppercase" >배움과 가름침, 그 사이 C'mon</div>#}
+{#                <div class="masthead-subheading">C'mon은 수업의 본질에 집중합니다.</div>#}
+                 </div>
+            <br>
+            <br>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="https://github.com/H1L4-KoreaUniv/Eyecon">Learn More</a>
+
+        </header>
+        <!--!-->
+        <section class="page-section" id="">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Services</h2>
-                    <h3 class="section-subheading text-muted">CNN based online class MONitoring System<br>비대면 강의의 질 향상을 위한 딥러닝 기반의 수업 참여도 모니터링 시스템</h3>
+                    <h3 class="section-subheading text-muted">CNN based online class MONitoring System<br>이미지 분석 기반의 실시간 비대면 수업 학습자 모니터링 시스템</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-6">

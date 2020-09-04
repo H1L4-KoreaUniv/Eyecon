@@ -6,6 +6,8 @@ class Meta():
         self.warning=0
         self.cnt=1
         self.sum=0
+        self.minute_sum=0
+        self.minute_cnt=1
 
     def push(self, input):
         # input type is json{ time, value}
