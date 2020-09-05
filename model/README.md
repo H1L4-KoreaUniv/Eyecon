@@ -25,7 +25,7 @@
 
 ## Model Structure
 
- ![image](https://user-images.githubusercontent.com/46590618/92297916-08751f80-ef7f-11ea-88b5-f99764756a0a.png)
+ ![image](https://user-images.githubusercontent.com/46590618/92297933-2f335600-ef7f-11ea-8c7f-22f0ff2276d7.png)
 
  우리가 개발한 모델을 살펴봅시다. 얼굴 이미지를 입력으로 받는 첫 번째 CNN에는 DeepFace가 사용되었습니다. 양쪽 눈은 두 번째 CNN에 따로 입력됩니다. 두 번째 CNN으로는 VGG16, ResNet50, MobileNetV2를 고려하였고, 최종 모델로 MobileNetV2를 사용하였습니다. 3차원 얼굴 각도는 모델 상단의 fully-connected layer에서 입력됩니다.
 
